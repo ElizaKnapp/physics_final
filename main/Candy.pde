@@ -8,4 +8,8 @@ public class Candy {
     xPos = x + (int)(l * sin(radians(angle)));
     yPos = y + (int)(l * cos(radians(angle))); // it's + because in processing, the top left corner is 0,0
   }
+  
+  void display() {
+    ellipse(xPos, yPos, 30, 30);
+  }
 }

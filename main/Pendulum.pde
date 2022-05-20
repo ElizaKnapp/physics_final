@@ -15,6 +15,19 @@ public class Pendulum {
    }
    
    void display() {
+     // the string
+     line(xPos, yPos, c.xPos, c.yPos);
+     
+     fill(#3A7FDE);
+     // the top of the pendulum
      ellipse(xPos, yPos, 20, 20);
+     
+     fill(#F57474);
+     // display the candy
+     c.display();
+   }
+   
+   void move(int time) {
+     
    }
 }

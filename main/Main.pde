@@ -1,4 +1,5 @@
 Pendulum p;
+int t; // in milliseconds!
 
 public void settings() {
   size(600, 600);
@@ -6,9 +7,10 @@ public void settings() {
 
 void setup() {
   background(#B79D85);
-  p = new Pendulum(200, 200, 50, 0);
+  p = new Pendulum(200, 200, 100, -30);
 }
 
 void draw() {
+  p.move(t);
   p.display();
 }
