@@ -3,6 +3,9 @@ public class Pendulum {
    int yPos;
    Rope s;
    Candy c;
+   float curr_angle;
+   float angle_acc;
+   float angle_vel;
    
    Pendulum(int x, int y, int l, int angle) {
      // creates a pendulum given the x and y pos and the length of the rope
@@ -11,6 +14,7 @@ public class Pendulum {
      yPos = y;
      s = new Rope(l, angle);
      c = new Candy(x, y, l, angle);
+     curr_angle = s.angle;
     
    }
    
@@ -27,7 +31,10 @@ public class Pendulum {
      c.display();
    }
    
-   void move(int time) {
-     
+   void move() {
+      c.xPos = xPos + (int)(s.len * sin(radians(curr_angle)));
+      c.yPos = yPos + (int)(s.len * cos(radians(curr_angle)));
+ 
+      curr_angle -= 1;
    }
 }
