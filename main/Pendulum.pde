@@ -35,9 +35,10 @@ public class Pendulum {
       c.xPos = xPos + (int)(r.len * sin(radians(curr_angle)));
       c.yPos = yPos + (int)(r.len * cos(radians(curr_angle)));
       
-      a_acc = -1 * sin(radians(curr_angle));
+      a_acc = -1 * 9.81 * sin(radians(curr_angle)) / r.len;
       curr_angle += a_vel;
       a_vel += a_acc;
+      a_vel *= .9985; // lol...
       
    }
 }
