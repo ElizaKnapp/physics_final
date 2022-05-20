@@ -13,4 +13,8 @@ public class Pendulum {
      c = new Candy(x, y, l, angle);
     
    }
+   
+   void display() {
+     ellipse(xPos, yPos, 20, 20);
+   }
 }
