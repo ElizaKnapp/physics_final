@@ -1,4 +1,7 @@
+PImage o_open, o_closed;
 Pendulum p;
+OmNom o;
+int rounds = 0;
 
 public void settings() {
   size(600, 600);
@@ -6,7 +9,9 @@ public void settings() {
 
 void setup() {
   background(#B79D85);
+  loadImages();
   p = new Pendulum(200, 200, 100, -30);
+  o = new OmNom(o_open, o_closed);
 }
 
 void draw() {
@@ -16,4 +21,14 @@ void draw() {
   // move and then display the pendulum
   p.move();
   p.display();
+  o.display();
+  if (rounds % 20 == 0) {
+    o.change();
+  }
+  rounds++;
+}
+
+void loadImages() {
+  o_closed = loadImage("closed.png");
+  o_open = loadImage("open.png");
 }
