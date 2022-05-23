@@ -1,7 +1,7 @@
 public class Candy {
   int xPos;
   int yPos;
-  int v_net; 
+  int v_net; // idk if we need this yet
   
   Candy(int x, int y, int l, int angle) {
     // the initial x and y position are calculated from pendulum's root and rope vars

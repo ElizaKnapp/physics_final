@@ -30,6 +30,7 @@ public class Pendulum {
      // display the candy
      c.display();
    }
+  
    
    void move() {
       c.xPos = xPos + (int)(r.len * sin(radians(curr_angle)));

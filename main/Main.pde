@@ -1,7 +1,8 @@
 PImage o_open, o_closed;
 Pendulum p;
 OmNom o;
-int rounds = 0;
+int rounds = 0; // this is the amount of rounds that have passed to calculuate when omnom's mouth is open
+
 
 public void settings() {
   size(600, 600);
