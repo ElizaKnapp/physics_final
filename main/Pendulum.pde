@@ -6,6 +6,7 @@ public class Pendulum {
    float curr_angle; // current angle from the center
    float a_acc = 0; // current acceleration
    float a_vel = 0; // current velocity
+   float g = 100; // gravity- PROBLEM!! If you change gravity the dampening doesn't work in move
    
    Pendulum(int x, int y, int l, int angle) {
      // creates a pendulum given the x and y pos and the length of the rope
@@ -36,7 +37,7 @@ public class Pendulum {
       c.xPos = xPos + (int)(r.len * sin(radians(curr_angle)));
       c.yPos = yPos + (int)(r.len * cos(radians(curr_angle)));
       
-      a_acc = -1 * 9.81 * sin(radians(curr_angle)) / r.len;
+      a_acc = -1 * g * sin(radians(curr_angle)) / r.len;
       curr_angle += a_vel;
       a_vel += a_acc;
       a_vel *= .9985; // lol...
