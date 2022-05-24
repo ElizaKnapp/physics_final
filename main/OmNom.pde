@@ -50,7 +50,7 @@ public class OmNom {
   }
  
   
-  void display() {
+  void display() { 
     if (eating) {      
       image(e[frame], 475, 475, 150, 150);
     } else {
