@@ -1,6 +1,7 @@
 public class OmNom {
   boolean open;
   PImage o, c;
+  boolean eating = false;
   
   OmNom(PImage op, PImage cl) {
     o = op;
@@ -26,11 +27,16 @@ public class OmNom {
   }
   
   void display() {
-    if (open) {
-      image(o, 500, 500, 100, 100);
+    if (eating) {
+      // insert the gif here
     } else {
-      image(c, 500, 500, 100, 100);
+      if (open) { 
+        image(o, 500, 500, 100, 100);
+      } else {
+        image(c, 500, 500, 100, 100);
+      }
     }
+    
   }
   
   
