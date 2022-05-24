@@ -9,9 +9,10 @@ public void settings() {
 }
 
 void setup() {
+  // frameRate(10);
   background(#B79D85);
   loadImages();
-  p = new Pendulum(200, 200, 100, -30);
+  p = new Pendulum(200, 200, 100, -60);
   o = new OmNom(o_open, o_closed);
 }
 
@@ -23,10 +24,12 @@ void draw() {
   p.move();
   p.display();
   o.display();
+  
   if (rounds % 20 == 0) {
     o.change();
   }
   rounds++;
+  
 }
 
 void loadImages() {
