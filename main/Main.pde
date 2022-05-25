@@ -53,11 +53,6 @@ void loadImages() {
 }
 
 void keyPressed() {
-  // this is just here for now for funzies lol
-  if (key == 's') {
-    o.change_eating();
-  }
-  
   // here is the cutting the rope part
   if (key == ' ' && !cut_yet) {
      p.split();

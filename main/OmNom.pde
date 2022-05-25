@@ -16,6 +16,7 @@ public class OmNom {
     open = false;
   }
   
+  /*
   void open(){
     open = true;
   }
@@ -47,15 +48,13 @@ public class OmNom {
       eating = true;
      }
   }
+  */
   
   void next_img() {
     frame ++;
     frame = frame % 16;
   }
   
-  // void check_eating state
-  // if close, open mouth
-  // if close and then unclose, go to a sad face?
   void check_eating_state(Candy c) {
     // omnom doesn't move!
     float d = dist(xPos, yPos, c.xPos, c.yPos);
@@ -74,8 +73,6 @@ public class OmNom {
     } else if (c.yPos > 600) {
       sad = true;
     }
-    
-    
   }
   
   float dist(float x1, float y1, float x2, float y2) {
