@@ -46,14 +46,17 @@ public class Pendulum {
         c.yPos = yPos + (int)(r.len * cos(radians(curr_angle)));
         s_end_x = c.xPos;
         s_end_y = c.yPos;
-        
-        a_acc = -1 * g * sin(radians(curr_angle)) / (float)(r.len);
-        curr_angle += a_vel;
-        a_vel += a_acc;
-        a_vel *= .9985; // lol...
+
       } else {
         c.move(g);
+        s_end_x = xPos + (int)(r.len * sin(radians(curr_angle)));
+        s_end_y = yPos + (int)(r.len * cos(radians(curr_angle)));
       }
+      
+      a_acc = -1 * g * sin(radians(curr_angle)) / (float)(r.len);
+      curr_angle += a_vel;
+      a_vel += a_acc;
+      a_vel *= .9985; // lol...
       
    }
    
