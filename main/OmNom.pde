@@ -1,16 +1,17 @@
 public class OmNom {
   boolean open;
-  PImage o, c;
+  boolean sad = false;
+  PImage o, c, s;
   PImage[] e = new PImage[16];
   boolean eating = false;
   int frame = 0;
   int xPos = 550;
   int yPos = 550;
-  int time_eating = -1; // 100 frames of eating
   
-  OmNom(PImage op, PImage cl, PImage[] eat) {
+  OmNom(PImage op, PImage cl, PImage sa, PImage[] eat) {
     o = op;
     c = cl;
+    s = sa;
     e = eat;
     open = false;
   }
@@ -53,17 +54,27 @@ public class OmNom {
   }
   
   // void check_eating state
-  // if touched, chew for a little bit (100 ticks?)
   // if close, open mouth
   // if close and then unclose, go to a sad face?
   void check_eating_state(Candy c) {
     // omnom doesn't move!
-    if (dist(xPos, yPos, c.xPos, c.yPos) > 30 && time_eating < 0) {
-      eating = false;
-    } else {
+    float d = dist(xPos, yPos, c.xPos, c.yPos);
+    // if it's close enough, make omnom eat
+    if (d <= 40) {
       eating = true;
-      time_eating -= 1;
+      c.vis = false;
+      // todo later: at some pt, move to the next level...
+    } else if (d <= 150) {
+      // if it gets close
+      open = true;
+    } else if (open && d > 150) {
+      open = false;
+      sad = true;
+      // insert sad face here!
+    } else if (c.yPos > 600) {
+      sad = true;
     }
+    
     
   }
   
@@ -80,6 +91,8 @@ public class OmNom {
     } else {
       if (open) { 
         image(o, 500, 500, 100, 100);
+      } else if (sad){
+        image(s, 500, 500, 100, 100);
       } else {
         image(c, 500, 500, 100, 100);
       }

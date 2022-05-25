@@ -3,6 +3,7 @@ public class Candy {
   int yPos;
   float v_x;
   float v_y;
+  boolean vis = true;
   
   Candy(int x, int y, float l, float angle) {
     // the initial x and y position are calculated from pendulum's root and rope vars
@@ -11,7 +12,9 @@ public class Candy {
   }
   
   void display() {
-    ellipse(xPos, yPos, 30, 30);
+    if (vis) {
+      ellipse(xPos, yPos, 30, 30);
+    }
   }
   
   void detatch(float vx, float vy) {

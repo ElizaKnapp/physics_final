@@ -1,4 +1,4 @@
-PImage o_open, o_closed;
+PImage o_open, o_closed, o_sad;
 PImage[] o_eating = new PImage[16];
 Pendulum p;
 OmNom o;
@@ -14,27 +14,30 @@ void setup() {
   background(#B79D85);
   loadImages();
   p = new Pendulum(200, 200, 200, 90);
-  o = new OmNom(o_open, o_closed, o_eating);
+  o = new OmNom(o_open, o_closed, o_sad, o_eating);
 }
 
 void draw() {
   // wipe background
   background(#B79D85);
   
+  // omnom's picture
+  o.check_eating_state(p.c);
+  o.display();
+  
   // move and then display the pendulum
   p.move();
   p.display();
-  
-  o.check_eating_state(p.c);
-  o.display();
   
   if (rounds % 2 == 0) {
     o.next_img();
   }
   
+  /*
   if (rounds % 20 == 0) {
     o.change();
   }
+  */
   rounds++;
   
 }
@@ -42,6 +45,7 @@ void draw() {
 void loadImages() {
   o_closed = loadImage("closed.png");
   o_open = loadImage("open.png");
+  o_sad = loadImage("sad.png");
   for (int i = 0; i < 16; i++) {
       String img_name = str(i + 1) + ".png";
       o_eating[i] = loadImage(img_name);
