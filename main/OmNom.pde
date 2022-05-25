@@ -52,7 +52,7 @@ public class OmNom {
   
   void display() { 
     if (eating) {      
-      image(e[frame], 475, 475, 150, 150);
+      image(e[frame], 500, 500, 100, 100);
     } else {
       if (open) { 
         image(o, 500, 500, 100, 100);
