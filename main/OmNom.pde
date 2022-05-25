@@ -64,10 +64,10 @@ public class OmNom {
       eating = true;
       c.vis = false;
       // todo later: at some pt, move to the next level...
-    } else if (d <= 150) {
+    } else if (d <= 200) {
       // if it gets close
       open = true;
-    } else if (open && d > 150) {
+    } else if (open && d > 200) {
       open = false;
       sad = true;
       // insert sad face here!
@@ -97,8 +97,5 @@ public class OmNom {
         image(c, 500, 500, 100, 100);
       }
     }
-    
   }
-  
-  
 }
