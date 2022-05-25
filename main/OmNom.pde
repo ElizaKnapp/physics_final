@@ -58,7 +58,7 @@ public class OmNom {
   // if close and then unclose, go to a sad face?
   void check_eating_state(Candy c) {
     // omnom doesn't move!
-    if (dist(xPos, yPos, c.xPos, c.yPos) > 50 && time_eating < 0) {
+    if (dist(xPos, yPos, c.xPos, c.yPos) > 30 && time_eating < 0) {
       eating = false;
     } else {
       eating = true;
