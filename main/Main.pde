@@ -13,7 +13,7 @@ void setup() {
   // frameRate(10);
   background(#B79D85);
   loadImages();
-  p = new Pendulum(200, 200, 100, 90);
+  p = new Pendulum(200, 200, 200, 90);
   o = new OmNom(o_open, o_closed, o_eating);
 }
 
