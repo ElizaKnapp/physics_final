@@ -4,6 +4,9 @@ public class OmNom {
   PImage[] e = new PImage[16];
   boolean eating = false;
   int frame = 0;
+  int xPos = 550;
+  int yPos = 550;
+  int time_eating = -1; // 100 frames of eating
   
   OmNom(PImage op, PImage cl, PImage[] eat) {
     o = op;
@@ -47,6 +50,27 @@ public class OmNom {
   void next_img() {
     frame ++;
     frame = frame % 16;
+  }
+  
+  // void check_eating state
+  // if touched, chew for a little bit (100 ticks?)
+  // if close, open mouth
+  // if close and then unclose, go to a sad face?
+  void check_eating_state(Candy c) {
+    // omnom doesn't move!
+    if (dist(xPos, yPos, c.xPos, c.yPos) > 50 && time_eating < 0) {
+      eating = false;
+    } else {
+      eating = true;
+      time_eating -= 1;
+    }
+    
+  }
+  
+  float dist(float x1, float y1, float x2, float y2) {
+     float x = (x1 - x2) * (x1 - x2);
+     float y = (y1 - y2) * (y1 - y2);
+     return sqrt(x + y);
   }
  
   

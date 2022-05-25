@@ -24,6 +24,8 @@ void draw() {
   // move and then display the pendulum
   p.move();
   p.display();
+  
+  o.check_eating_state(p.c);
   o.display();
   
   if (rounds % 2 == 0) {
