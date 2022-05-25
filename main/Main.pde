@@ -3,6 +3,7 @@ PImage[] o_eating = new PImage[16];
 Pendulum p;
 OmNom o;
 int rounds = 0; // this is the amount of rounds that have passed to calculuate when omnom's mouth is open
+boolean cut_yet = false;
 
 public void settings() {
   size(600, 600);
@@ -12,7 +13,7 @@ void setup() {
   // frameRate(10);
   background(#B79D85);
   loadImages();
-  p = new Pendulum(200, 200, 100, -60);
+  p = new Pendulum(200, 200, 100, 90);
   o = new OmNom(o_open, o_closed, o_eating);
 }
 
@@ -52,7 +53,8 @@ void keyPressed() {
   }
   
   // here is the cutting the rope part
-  if (key == ' ') {
+  if (key == ' ' && !cut_yet) {
      p.split();
+     cut_yet = true;
   }
 }

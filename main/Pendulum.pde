@@ -64,25 +64,28 @@ public class Pendulum {
      // here, calculate net x velocity and net y velocity
      float v_net = a_vel * r.len;
      float v_x, v_y;
-     if (curr_angle < 0 && a_acc < 0) {
+     if (curr_angle < 0 && a_vel < 0) {
+       println("on left go up");
        // if it's on the left and it's going up
        v_x = -1 * abs(v_net * cos(radians(curr_angle)));
        v_y = -1 * abs(v_net * sin(radians(curr_angle)));  
-     } else if (curr_angle < 0 && a_acc >= 0) {
+     } else if (curr_angle < 0 && a_vel >= 0) {
+       println("on left go down");
        // if it's on the left and it's going down
        v_x = abs(v_net * cos(radians(curr_angle)));
        v_y = abs(v_net * sin(radians(curr_angle)));  
-     } else if (curr_angle >= 0 && a_acc < 0) {
+     } else if (curr_angle >= 0 && a_vel >= 0) {
+       println("on right go up");
        // if it's on the right and it's going up
        v_x = abs(v_net * cos(radians(curr_angle)));
        v_y = -1 * abs(v_net * sin(radians(curr_angle)));  
      } else {
+       println("on right go down");
        // if it's on the right and it's going down
        v_x = -1 * abs(v_net * cos(radians(curr_angle)));
        v_y = abs(v_net * sin(radians(curr_angle)));  
      }
 
      c.detatch(v_x, v_y);
-     print("split");
    }
 }

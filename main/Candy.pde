@@ -15,7 +15,6 @@ public class Candy {
   }
   
   void detatch(float vx, float vy) {
-    print("detatch");
     v_x = vx;
     v_y = vy;
     // then, somehow calculate the motion differently!
@@ -26,7 +25,7 @@ public class Candy {
     // this only ever gets called if the candy is detached
     xPos += (int)(v_x / 100);
     yPos += (int)(v_y / 100);
-    // v_y += gravity;
+    v_y += gravity;
     
   }
 }
