@@ -1,3 +1,9 @@
+/*
+BUGS!!!!!!
+The button clicking sensor senses the wrong location?
+*/
+
+
 PImage o_open, o_closed, o_sad;
 PImage[] o_eating = new PImage[16];
 Pendulum p;
@@ -83,9 +89,19 @@ void keyPressed() {
 void mouseClicked() {
   if (len.on_button(mouseX, mouseY)) {
     if (round) {
+      if (!len.clicked) {
+        len.clicked = true;
+        len.change_color(100);
+      } else {
+        len.clicked = false;
+        len.change_color(len.og_c);
+      }
+
+      /*
       rope_length -= 50;
       rounds = 0;
       reset_vars();
+      */
     }
   }
   if (restart.on_button(mouseX, mouseY)) {
