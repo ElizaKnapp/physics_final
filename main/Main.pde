@@ -14,6 +14,7 @@ Button len, restart;
 int rope_length = 200;
 boolean round = true;
 String typing = "";
+String message = "";
 
 public void settings() {
   size(600, 600);
@@ -41,6 +42,13 @@ void reset_vars() {
 void draw() {
   // wipe background
   background(#B79D85);
+  
+  // display whatever the message is
+  textSize(30);
+  textAlign(LEFT);
+  fill(color(255,0,0));
+  text(message, 20, 100);
+  textSize(12);
    
   // display the buttons
   len.display();
@@ -88,8 +96,12 @@ void keyPressed() {
   }
   if (key != ' ') {
     print(key);
-    typing = typing + key;
-    len.i.text = typing;
+    if (typing.length() > 2) {
+      message = "YOYOYO only 3 numbers";
+    } else {
+      typing = typing + key;
+      len.i.text = typing;
+    }
   }
 }
 
