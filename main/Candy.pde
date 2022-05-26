@@ -13,6 +13,7 @@ public class Candy {
   
   void display() {
     if (vis) {
+      // this 30 is the entire length, not the radius!
       ellipse(xPos, yPos, 30, 30);
     }
   }

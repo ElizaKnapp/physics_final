@@ -16,7 +16,7 @@ public class Button {
     og_c = col;
     r = size;
     name = n;
-    i = new Input(xPos, yPos + r);
+    i = new Input(xPos - r, yPos + r);
   }
   
   void display() {
