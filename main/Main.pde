@@ -24,16 +24,16 @@ void setup() {
   loadImages();
   p = new Pendulum(200, 200, rope_length, 90);
   o = new OmNom(o_open, o_closed, o_sad, o_eating);
-  len = new Button(100, 500, color(255,0,0), 50, "Length"); 
-  restart = new Button(50, 500, color(0,0,255), 50, "Restart"); 
+  len = new Button(100, 500, color(255,0,0), 25, "Length"); 
+  restart = new Button(50, 500, color(0,0,255), 25, "Restart"); 
 }
 
 void reset_vars() {
   background(#B79D85);
   p = new Pendulum(200, 200, rope_length, 90);
   o = new OmNom(o_open, o_closed, o_sad, o_eating);
-  len = new Button(100, 500, color(255,0,0), 50, "Length"); 
-  restart = new Button(50, 500, color(0,0,255), 50, "Restart"); 
+  len = new Button(100, 500, color(255,0,0), 25, "Length"); 
+  restart = new Button(50, 500, color(0,0,255), 25, "Restart"); 
 
 }
 

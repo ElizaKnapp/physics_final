@@ -21,7 +21,7 @@ public class Button {
   
   void display() {
     fill(c);
-    ellipse(xPos, yPos, r, r);
+    ellipse(xPos, yPos, 2*r, 2*r);
     fill(255);
     textAlign(CENTER);
     text(name, xPos, yPos);

@@ -12,7 +12,9 @@ public class Input {
   
   void display() {
     fill(255);
+    rectMode(CENTER);
     rect(xPos, yPos, w, h);
+    rectMode(CORNER);
   }
   
 }
