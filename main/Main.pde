@@ -13,6 +13,7 @@ boolean cut_yet = false;
 Button len, restart;
 int rope_length = 200;
 boolean round = true;
+String typing = "";
 
 public void settings() {
   size(600, 600);
@@ -43,6 +44,7 @@ void draw() {
    
   // display the buttons
   len.display();
+
   restart.display();
   
   // omnom's picture
@@ -84,6 +86,11 @@ void keyPressed() {
      p.split();
      cut_yet = true;
   }
+  if (key != ' ') {
+    print(key);
+    typing = typing + key;
+    len.i.text = typing;
+  }
 }
 
 void mouseClicked() {
@@ -95,6 +102,8 @@ void mouseClicked() {
       } else {
         len.clicked = false;
         len.change_color(len.og_c);
+        len.i.text = "";
+        typing = "";
       }
 
       /*
@@ -107,6 +116,7 @@ void mouseClicked() {
   if (restart.on_button(mouseX, mouseY)) {
     rounds = 0;
     rope_length = 200;
+    typing = "";
     cut_yet = false;
     round = true;
     reset_vars();
