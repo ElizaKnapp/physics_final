@@ -20,6 +20,14 @@ void setup() {
   o = new OmNom(o_open, o_closed, o_sad, o_eating);
   len = new Button(100, 500, color(255,0,0), 50, "Length"); 
   restart = new Button(50, 500, color(0,0,255), 50, "Restart"); 
+}
+
+void reset_vars() {
+  background(#B79D85);
+  p = new Pendulum(200, 200, rope_length, 90);
+  o = new OmNom(o_open, o_closed, o_sad, o_eating);
+  len = new Button(100, 500, color(255,0,0), 50, "Length"); 
+  restart = new Button(50, 500, color(0,0,255), 50, "Restart"); 
 
 }
 
@@ -77,7 +85,7 @@ void mouseClicked() {
     if (round) {
       rope_length -= 50;
       rounds = 0;
-      setup();
+      reset_vars();
     }
   }
   if (restart.on_button(mouseX, mouseY)) {
@@ -85,7 +93,7 @@ void mouseClicked() {
     rope_length = 200;
     cut_yet = false;
     round = true;
-    setup();
+    reset_vars();
   }
   
 }
