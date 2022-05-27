@@ -63,10 +63,10 @@ public class OmNom {
       eating = true;
       c.vis = false;
       // todo later: at some pt, move to the next level...
-    } else if (d <= 200) {
+    } else if (d <= 175) {
       // if it gets close
       open = true;
-    } else if (open && d > 200) {
+    } else if (open && d > 175) {
       open = false;
       sad = true;
       // insert sad face here!

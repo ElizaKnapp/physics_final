@@ -99,6 +99,7 @@ void keyPressed() {
       int new_length = Integer.valueOf(len.i.text);
       if (new_length <= 300 && new_length >= 50) {
         rope_length = new_length;
+        message = "";
       } else message = "please input a length from 50 to 300";
       rounds = 0;
       reset_vars();
@@ -135,6 +136,7 @@ void mouseClicked() {
     rope_length = 200;
     cut_yet = false;
     round = true;
+    message = "";
     reset_vars();
   }
   
