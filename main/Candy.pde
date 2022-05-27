@@ -8,7 +8,7 @@ public class Candy {
   Candy(int x, int y, float l, float angle) {
     // the initial x and y position are calculated from pendulum's root and rope vars
     xPos = x + (int)(l * sin(radians(angle)));
-    yPos = y + (int)(l * cos(radians(angle))); // it's + because in processing, the top left corner is 0,0
+    yPos = y + (int)(l * cos(radians(angle))); // it's + because in processing, the top left corner is 0,0   
   }
   
   void display() {

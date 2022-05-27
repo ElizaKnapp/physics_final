@@ -6,10 +6,12 @@ public class Pendulum {
    float curr_angle; // current angle from the center
    float a_acc = 0; // current acceleration
    float a_vel = 0; // current velocity
-   float g = 9.81; // gravity- PROBLEM!! If you change gravity the dampening doesn't work in move
+   // starts on jupiter
+   float g = 25; // gravity- PROBLEM!! If you change gravity the dampening doesn't work in move 
    boolean attached = true;
    float s_end_x;
    float s_end_y;
+   float damp_const = .9983;
    
    
    Pendulum(int x, int y, float l, float angle) {
@@ -22,6 +24,9 @@ public class Pendulum {
      curr_angle = r.angle;
      s_end_x = c.xPos;
      s_end_y = c.yPos;
+     if (l < 80) damp_const = .994;
+     else if (l < 100) damp_const = 0.997;
+     else if (l < 140) damp_const = 0.998;
     
    }
    
@@ -42,8 +47,10 @@ public class Pendulum {
    
    void move() {
       if (attached) {
-        c.xPos = xPos + (int)(r.len * sin(radians(curr_angle)));
-        c.yPos = yPos + (int)(r.len * cos(radians(curr_angle)));
+        if (sin(radians(curr_angle)) >= 0) c.xPos = xPos + floor(r.len * sin(radians(curr_angle)));
+        else c.xPos = xPos + ceil(r.len * sin(radians(curr_angle)));
+        if (cos(radians(curr_angle)) >= 0) c.yPos = yPos + floor(r.len * cos(radians(curr_angle)));
+        else c.yPos = yPos + ceil(r.len * cos(radians(curr_angle)));
         s_end_x = c.xPos;
         s_end_y = c.yPos;
 
@@ -55,7 +62,7 @@ public class Pendulum {
       a_acc = -1 * g * sin(radians(curr_angle)) / (float)(r.len);
       curr_angle += a_vel;
       a_vel += a_acc;
-      a_vel *= .9985; // lol...
+      a_vel *= damp_const; // lol...
       
    }
    
