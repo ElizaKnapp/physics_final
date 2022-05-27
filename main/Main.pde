@@ -10,10 +10,10 @@ Pendulum p;
 OmNom o;
 int rounds = 0; // this is the amount of rounds that have passed to calculuate when omnom's mouth is open
 boolean cut_yet = false;
-Button len, restart;
+Button len, restart, gravity;
 int rope_length = 200;
 boolean round = true;
-String message = "";
+String message = "You have been placed on Jupiter to feed a cute alien" + '\n' + "in a rocketship. Click the space key to cut the rope.";
 
 public void settings() {
   size(600, 600);
@@ -27,6 +27,7 @@ void setup() {
   o = new OmNom(o_open, o_closed, o_sad, o_eating);
   len = new Button(100, 500, color(255,0,0), 25, "Length"); 
   restart = new Button(50, 500, color(0,0,255), 25, "Restart"); 
+  gravity = new Button(150, 500, color(100, 100, 0), 25, "Gravity");
 }
 
 void reset_vars() {
@@ -35,6 +36,7 @@ void reset_vars() {
   o = new OmNom(o_open, o_closed, o_sad, o_eating);
   len = new Button(100, 500, color(255,0,0), 25, "Length"); 
   restart = new Button(50, 500, color(0,0,255), 25, "Restart"); 
+  gravity = new Button(150, 500, color(100, 100, 0), 25, "Gravity");
 
 }
 
@@ -46,14 +48,16 @@ void draw() {
   textSize(20);
   textAlign(LEFT);
   if (message.equals("input: lengths 50-300")) fill(color(0,255,0));
+  else if (message.contains("Jupiter")) fill(color(0,255,0));
+  else if (message.contains("rocket")) fill(color(0,255,0));
   else fill(color(255,0,0));
   text(message, 20, 100);
   textSize(12);
    
   // display the buttons
   len.display();
-
   restart.display();
+  gravity.display();
   
   // omnom's picture
   o.check_eating_state(p.c);
@@ -127,6 +131,21 @@ void mouseClicked() {
         len.clicked = false;
         len.change_color(len.og_c);
         len.i.text = "";
+        message = "";
+      }
+    }
+  }
+  if (gravity.on_button(mouseX, mouseY)) {
+    print("adsfkjasdlkfjasdlkf");
+    if (round) {
+      if (!gravity.clicked) {
+        gravity.clicked = true;
+        gravity.change_color(100);
+        message = "Drive the rocket away from jupiter to adjust gravity" + '\n' + "Input values 0-25 m/s^2 for acc due to gravity";
+      } else {
+        gravity.clicked = false;
+        gravity.change_color(gravity.og_c);
+        gravity.i.text = "";
         message = "";
       }
     }
