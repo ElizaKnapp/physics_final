@@ -13,7 +13,6 @@ boolean cut_yet = false;
 Button len, restart;
 int rope_length = 200;
 boolean round = true;
-String typing = "";
 String message = "";
 
 public void settings() {
@@ -95,12 +94,22 @@ void keyPressed() {
      cut_yet = true;
   }
   if (key != ' ') {
-    print(key);
-    if (typing.length() > 2) {
-      message = "YOYOYO only 3 numbers";
+    if (key == '\n') {
+      int new_length = Integer.valueOf(len.i.text);
+      if (new_length <= 300 && new_length >= 50) {
+        rope_length = new_length;
+      } else message = "input length from 50 to 300";
+      rounds = 0;
+      reset_vars();
+    } else if (len.i.text.length() > 2) {
+      message = "only 3 numbers";
     } else {
-      typing = typing + key;
-      len.i.text = typing;
+      if (key >= 48 && key <= 57) {
+        if (key == 48 && len.i.text.length() == 0) message = "no 0 in the front";
+        else len.i.text = len.i.text + key;
+      } else {
+        message = "numbers 0-9 only please";
+      }
     }
   }
 }
@@ -111,24 +120,17 @@ void mouseClicked() {
       if (!len.clicked) {
         len.clicked = true;
         len.change_color(100);
+        message = "input length from 50 to 300";
       } else {
         len.clicked = false;
         len.change_color(len.og_c);
         len.i.text = "";
-        typing = "";
       }
-
-      /*
-      rope_length -= 50;
-      rounds = 0;
-      reset_vars();
-      */
     }
   }
   if (restart.on_button(mouseX, mouseY)) {
     rounds = 0;
     rope_length = 200;
-    typing = "";
     cut_yet = false;
     round = true;
     reset_vars();
