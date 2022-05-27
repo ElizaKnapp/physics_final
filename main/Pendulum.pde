@@ -27,7 +27,7 @@ public class Pendulum {
    
    void display() {
      // the string
-     line(xPos, yPos, s_end_x, s_end_y);
+     if (r.vis) line(xPos, yPos, s_end_x, s_end_y);
      
      fill(#3A7FDE);
      // the top of the pendulum
@@ -49,8 +49,7 @@ public class Pendulum {
 
       } else {
         c.move(g);
-        s_end_x = xPos + (int)(r.len * sin(radians(curr_angle)));
-        s_end_y = yPos + (int)(r.len * cos(radians(curr_angle)));
+        r.vis = false;
       }
       
       a_acc = -1 * g * sin(radians(curr_angle)) / (float)(r.len);
