@@ -87,7 +87,7 @@ void loadImages() {
   o_open = loadImage("open.png");
   o_sad = loadImage("sad.png");
   for (int i = 0; i < 16; i++) {
-      String img_name = str(i + 1) + ".png";
+      String img_name = "eating" + str(i + 1) + ".png";
       o_eating[i] = loadImage(img_name);
   }
 }
