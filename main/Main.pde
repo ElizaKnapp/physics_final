@@ -43,9 +43,10 @@ void draw() {
   background(#B79D85);
   
   // display whatever the message is
-  textSize(30);
+  textSize(20);
   textAlign(LEFT);
-  fill(color(255,0,0));
+  if (message.equals("input: lengths 50-300")) fill(color(0,255,0));
+  else fill(color(255,0,0));
   text(message, 20, 100);
   textSize(12);
    
@@ -98,7 +99,7 @@ void keyPressed() {
       int new_length = Integer.valueOf(len.i.text);
       if (new_length <= 300 && new_length >= 50) {
         rope_length = new_length;
-      } else message = "input length from 50 to 300";
+      } else message = "please input a length from 50 to 300";
       rounds = 0;
       reset_vars();
     } else if (len.i.text.length() > 2) {
@@ -120,11 +121,12 @@ void mouseClicked() {
       if (!len.clicked) {
         len.clicked = true;
         len.change_color(100);
-        message = "input length from 50 to 300";
+        message = "input: lengths 50-300";
       } else {
         len.clicked = false;
         len.change_color(len.og_c);
         len.i.text = "";
+        message = "";
       }
     }
   }
