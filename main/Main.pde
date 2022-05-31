@@ -104,17 +104,24 @@ void keyPressed() {
       if (new_length <= 300 && new_length >= 50) {
         rope_length = new_length;
         message = "";
-      } else message = "please input a length from 50 to 300";
+       } else message = "please input a length from 50 to 300";
       rounds = 0;
       reset_vars();
-    } else if (len.i.text.length() > 2) {
-      message = "only 3 numbers";
-    } else {
-      if (key >= 48 && key <= 57) {
-        if (key == 48 && len.i.text.length() == 0) message = "no 0 in the front";
-        else len.i.text = len.i.text + key;
-      } else {
-        message = "numbers 0-9 only please";
+       } else if (key==BACKSPACE){
+         if (len.i.text.length() > 0) {
+            len.i.text = len.i.text.substring(0, len.i.text.length() - 1);
+         } else {
+           len.i.text = "";
+         }
+        }
+        else if (len.i.text.length() > 2) {
+        message = "only 3 numbers";
+        } else {
+          if (key >= 48 && key <= 57) {
+             if (key == 48 && len.i.text.length() == 0) message = "no 0 in the front";
+              else len.i.text = len.i.text + key;
+          } else {
+            message = "numbers 0-9 only please";
       }
     }
   }
@@ -155,7 +162,8 @@ void mouseClicked() {
     rope_length = 200;
     cut_yet = false;
     round = true;
-    message = "";
+    message = "You have been placed on Jupiter to feed a cute alien" + '\n' + "in a rocketship. Click the space key to cut the rope.";
+
     reset_vars();
   }
   
