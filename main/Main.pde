@@ -4,7 +4,7 @@ The button clicking sensor senses the wrong location?
 */
 
 
-PImage o_open, o_closed, o_sad, candy_pic;
+PImage o_open, o_closed, o_sad, candy_pic, rocket, jupiter;
 PImage[] o_eating = new PImage[16];
 Pendulum p;
 OmNom o;
@@ -15,6 +15,7 @@ int rope_length = 200;
 boolean round = true;
 String message = "You have been placed on Jupiter to feed a cute alien" + '\n' + "in a rocketship. Click the space key to cut the rope.";
 int g = 25;
+int space = 0; // the amount of time it is in space
 
 public void settings() {
   size(600, 600);
@@ -42,6 +43,21 @@ void reset_vars() {
 }
 
 void draw() {
+  if (space > 0) {
+    space --;
+    background(0);
+    image(rocket, 200, 200, 200, 200);
+    image(jupiter, -40, 470, 200, 200);
+    textSize(20);
+    textAlign(CENTER);
+    fill(color(255));
+    text("The space ship travels away from Jupiter so the" +
+    "\n" + "acceleration due to gravity decreases." + "\n" 
+    + "We ARE physically accurate!", 300, 100);
+    textSize(12);
+    
+  } else {
+  
   // wipe background
   background(#B79D85);
   
@@ -49,8 +65,7 @@ void draw() {
   textSize(20);
   textAlign(LEFT);
   if (message.equals("input: lengths 50-300")) fill(color(0,255,0));
-  else if (message.contains("Jupiter")) fill(color(0,255,0));
-  else if (message.contains("rocket")) fill(color(0,255,0));
+  else if (message.contains("Jupiter") || message.contains("rocket") || message.contains("pendulum")) fill(color(0,255,0));
   else fill(color(255,0,0));
   text(message, 20, 100);
   textSize(12);
@@ -80,6 +95,7 @@ void draw() {
   }
   */
   rounds++;
+  }
   
 }
 
@@ -92,6 +108,8 @@ void loadImages() {
       o_eating[i] = loadImage(img_name);
   }
   candy_pic = loadImage("candy.png");
+  rocket = loadImage("rocket.png");
+  jupiter = loadImage("jupiter.png");
 }
 
 void keyPressed() {
@@ -104,13 +122,18 @@ void keyPressed() {
     if (len.clicked) {
 
       if (key == '\n' ) {
-        int new_length = Integer.valueOf(len.i.text);
-        if (new_length <= 300 && new_length >= 50) {
-          rope_length = new_length;
-          message = "You have been placed on Jupiter to feed a cute alien" + '\n' + "in a rocketship. Click the space key to cut the rope.";
-         } else message = "please input a length from 50 to 300";
-        rounds = 0;
-        reset_vars();
+        try {
+          int new_length = Integer.valueOf(len.i.text);
+            if (new_length <= 300 && new_length >= 50) {
+              rope_length = new_length;
+              message = "You have been placed on Jupiter to feed a cute alien" + '\n' + "in a rocketship. Click the space key to cut the rope.";
+             } else message = "please input a length from 50 to 300";
+            rounds = 0;
+            reset_vars();
+        } catch (Exception e) {
+          // continue to find problem
+        }
+
          } else if (key==BACKSPACE){
            if (len.i.text.length() > 0) {
               len.i.text = len.i.text.substring(0, len.i.text.length() - 1);
@@ -131,13 +154,18 @@ void keyPressed() {
     }
    else if (gravity.clicked) {
      if (key == '\n' ) {
+       try {
         int grav = Integer.valueOf(gravity.i.text);
         if (grav <= 25 && grav >= 1) {
           g = grav;
-          message = "You have been placed on Jupiter to feed a cute alien" + '\n' + "in a rocketship. Click the space key to cut the rope.";
+          space = 400;
+          message = "You have traveled through space, notice how the period" + "\n" + "of the pendulum changes." + "\n" + "Click the space key to cut the rope.";
          } else message = "please input a gravity value from 1 to 25";
         rounds = 0;
         reset_vars();
+       } catch (Exception e) {
+         // move on to find the problem
+       }
          } else if (key==BACKSPACE){
            if (gravity.i.text.length() > 0) {
               gravity.i.text = gravity.i.text.substring(0, gravity.i.text.length() - 1);
@@ -203,7 +231,7 @@ void mouseClicked() {
     rope_length = 200;
     cut_yet = false;
     round = true;
-    message = "You have been placed on Jupiter to feed a cute alien" + '\n' + "in a rocketship. Click the space key to cut the rope.";
+    message = "You have been placed on Jupiter to feed a cute alien" + '\n' + "in a rocketship." + "\n" + "Click the space key to cut the rope.";
 
     reset_vars();
   }
