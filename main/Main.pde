@@ -107,7 +107,7 @@ void keyPressed() {
         int new_length = Integer.valueOf(len.i.text);
         if (new_length <= 300 && new_length >= 50) {
           rope_length = new_length;
-          message = "";
+          message = "You have been placed on Jupiter to feed a cute alien" + '\n' + "in a rocketship. Click the space key to cut the rope.";
          } else message = "please input a length from 50 to 300";
         rounds = 0;
         reset_vars();
@@ -132,10 +132,10 @@ void keyPressed() {
    else if (gravity.clicked) {
      if (key == '\n' ) {
         int grav = Integer.valueOf(gravity.i.text);
-        if (grav <= 300 && grav >= 50) {
+        if (grav <= 25 && grav >= 1) {
           g = grav;
-          message = "";
-         } else message = "please input a gravity value from 50 to 300";
+          message = "You have been placed on Jupiter to feed a cute alien" + '\n' + "in a rocketship. Click the space key to cut the rope.";
+         } else message = "please input a gravity value from 1 to 25";
         rounds = 0;
         reset_vars();
          } else if (key==BACKSPACE){
@@ -145,8 +145,8 @@ void keyPressed() {
              gravity.i.text = "";
            }
           }
-          else if (gravity.i.text.length() > 2) {
-          message = "only 3 numbers";
+          else if (gravity.i.text.length() > 1) {
+          message = "only 2 numbers";
           } else {
             if (key >= 48 && key <= 57) {
                if (key == 48 && gravity.i.text.length() == 0) message = "no 0 in the front";
