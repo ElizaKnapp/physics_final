@@ -126,7 +126,7 @@ void keyPressed() {
           int new_length = Integer.valueOf(len.i.text);
             if (new_length <= 300 && new_length >= 50) {
               rope_length = new_length;
-              message = "You have been placed on Jupiter to feed a cute alien" + '\n' + "in a rocketship. Click the space key to cut the rope.";
+              message = "Notice how the period of the pendulum changes" + "\n" + "with the different length" + '\n' + "Click the space key to cut the rope.";
              } else message = "please input a length from 50 to 300";
             rounds = 0;
             reset_vars();
@@ -208,7 +208,6 @@ void mouseClicked() {
     }
   }
   if (gravity.on_button(mouseX, mouseY)) {
-    print("adsfkjasdlkfjasdlkf");
     if (round) {
       if (len.clicked) {
         len.clicked = false;
@@ -232,7 +231,7 @@ void mouseClicked() {
     cut_yet = false;
     round = true;
     message = "You have been placed on Jupiter to feed a cute alien" + '\n' + "in a rocketship." + "\n" + "Click the space key to cut the rope.";
-
+    g = 25;
     reset_vars();
   }
   
