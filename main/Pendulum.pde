@@ -14,13 +14,13 @@ public class Pendulum {
    float damp_const = .9983;
    
    
-   Pendulum(int x, int y, float l, float angle) {
+   Pendulum(int x, int y, float l, float angle, PImage p) {
      // creates a pendulum given the x and y pos and the length of the rope
      // the angle is the ANGLE FROM THE CENTER (negative if to the left, positive if to the right)
      xPos = x;
      yPos = y;
      r = new Rope(l, angle);
-     c = new Candy(x, y, l, angle);
+     c = new Candy(x, y, l, angle, p);
      curr_angle = r.angle;
      s_end_x = c.xPos;
      s_end_y = c.yPos;

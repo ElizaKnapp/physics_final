@@ -4,7 +4,7 @@ The button clicking sensor senses the wrong location?
 */
 
 
-PImage o_open, o_closed, o_sad;
+PImage o_open, o_closed, o_sad, candy_pic;
 PImage[] o_eating = new PImage[16];
 Pendulum p;
 OmNom o;
@@ -23,7 +23,7 @@ void setup() {
   // frameRate(10);
   background(#B79D85);
   loadImages();
-  p = new Pendulum(200, 200, rope_length, 90);
+  p = new Pendulum(200, 200, rope_length, 90, candy_pic);
   o = new OmNom(o_open, o_closed, o_sad, o_eating);
   len = new Button(100, 500, color(255,0,0), 25, "Length"); 
   restart = new Button(50, 500, color(0,0,255), 25, "Restart"); 
@@ -32,7 +32,7 @@ void setup() {
 
 void reset_vars() {
   background(#B79D85);
-  p = new Pendulum(200, 200, rope_length, 90);
+  p = new Pendulum(200, 200, rope_length, 90, candy_pic);
   o = new OmNom(o_open, o_closed, o_sad, o_eating);
   len = new Button(100, 500, color(255,0,0), 25, "Length"); 
   restart = new Button(50, 500, color(0,0,255), 25, "Restart"); 
@@ -90,6 +90,7 @@ void loadImages() {
       String img_name = "eating" + str(i + 1) + ".png";
       o_eating[i] = loadImage(img_name);
   }
+  candy_pic = loadImage("candy.png");
 }
 
 void keyPressed() {
@@ -99,37 +100,44 @@ void keyPressed() {
      cut_yet = true;
   }
   if (key != ' ') {
-    if (key == '\n') {
-      int new_length = Integer.valueOf(len.i.text);
-      if (new_length <= 300 && new_length >= 50) {
-        rope_length = new_length;
-        message = "";
-       } else message = "please input a length from 50 to 300";
-      rounds = 0;
-      reset_vars();
-       } else if (key==BACKSPACE){
-         if (len.i.text.length() > 0) {
-            len.i.text = len.i.text.substring(0, len.i.text.length() - 1);
-         } else {
-           len.i.text = "";
-         }
-        }
-        else if (len.i.text.length() > 2) {
-        message = "only 3 numbers";
-        } else {
-          if (key >= 48 && key <= 57) {
-             if (key == 48 && len.i.text.length() == 0) message = "no 0 in the front";
-              else len.i.text = len.i.text + key;
+    if (len.clicked) {
+
+      if (key == '\n' ) {
+        int new_length = Integer.valueOf(len.i.text);
+        if (new_length <= 300 && new_length >= 50) {
+          rope_length = new_length;
+          message = "";
+         } else message = "please input a length from 50 to 300";
+        rounds = 0;
+        reset_vars();
+         } else if (key==BACKSPACE){
+           if (len.i.text.length() > 0) {
+              len.i.text = len.i.text.substring(0, len.i.text.length() - 1);
+           } else {
+             len.i.text = "";
+           }
+          }
+          else if (len.i.text.length() > 2) {
+          message = "only 3 numbers";
           } else {
-            message = "numbers 0-9 only please";
-      }
-    }
+            if (key >= 48 && key <= 57) {
+               if (key == 48 && len.i.text.length() == 0) message = "no 0 in the front";
+                else len.i.text = len.i.text + key;
+            } else {
+              message = "numbers 0-9 only please";
+        }
+        }
+  }
   }
 }
 
 void mouseClicked() {
   if (len.on_button(mouseX, mouseY)) {
     if (round) {
+      if (gravity.clicked){
+        gravity.clicked = false;
+        gravity.change_color(gravity.og_c);
+      }
       if (!len.clicked) {
         len.clicked = true;
         len.change_color(100);
@@ -145,6 +153,10 @@ void mouseClicked() {
   if (gravity.on_button(mouseX, mouseY)) {
     print("adsfkjasdlkfjasdlkf");
     if (round) {
+      if (len.clicked) {
+        len.clicked = false;
+        len.change_color(len.og_c);
+      }
       if (!gravity.clicked) {
         gravity.clicked = true;
         gravity.change_color(100);

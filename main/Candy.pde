@@ -4,17 +4,22 @@ public class Candy {
   float v_x;
   float v_y;
   boolean vis = true;
+  PImage pic;
   
-  Candy(int x, int y, float l, float angle) {
+  Candy(int x, int y, float l, float angle, PImage p) {
     // the initial x and y position are calculated from pendulum's root and rope vars
     xPos = x + (int)(l * sin(radians(angle)));
     yPos = y + (int)(l * cos(radians(angle))); // it's + because in processing, the top left corner is 0,0   
+    pic = p;
   }
   
   void display() {
     if (vis) {
       // this 30 is the entire length, not the radius!
-      ellipse(xPos, yPos, 30, 30);
+      // ellipse(xPos, yPos, 30, 30);
+      imageMode(CENTER);
+      image(pic, xPos, yPos, 30, 30);
+      imageMode(CORNER);
     }
   }
   
