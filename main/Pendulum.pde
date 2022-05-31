@@ -7,14 +7,14 @@ public class Pendulum {
    float a_acc = 0; // current acceleration
    float a_vel = 0; // current velocity
    // starts on jupiter
-   float g = 25; // gravity- PROBLEM!! If you change gravity the dampening doesn't work in move 
+   float g;
    boolean attached = true;
    float s_end_x;
    float s_end_y;
    float damp_const = .9983;
    
    
-   Pendulum(int x, int y, float l, float angle, PImage p) {
+   Pendulum(int x, int y, float l, float angle, PImage p, int gr) {
      // creates a pendulum given the x and y pos and the length of the rope
      // the angle is the ANGLE FROM THE CENTER (negative if to the left, positive if to the right)
      xPos = x;
@@ -27,6 +27,7 @@ public class Pendulum {
      if (l < 80) damp_const = .994;
      else if (l < 100) damp_const = 0.997;
      else if (l < 140) damp_const = 0.998;
+     g = gr;
     
    }
    

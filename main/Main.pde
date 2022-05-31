@@ -14,6 +14,7 @@ Button len, restart, gravity;
 int rope_length = 200;
 boolean round = true;
 String message = "You have been placed on Jupiter to feed a cute alien" + '\n' + "in a rocketship. Click the space key to cut the rope.";
+int g = 25;
 
 public void settings() {
   size(600, 600);
@@ -23,7 +24,7 @@ void setup() {
   // frameRate(10);
   background(#B79D85);
   loadImages();
-  p = new Pendulum(200, 200, rope_length, 90, candy_pic);
+  p = new Pendulum(200, 200, rope_length, 90, candy_pic, g);
   o = new OmNom(o_open, o_closed, o_sad, o_eating);
   len = new Button(100, 500, color(255,0,0), 25, "Length"); 
   restart = new Button(50, 500, color(0,0,255), 25, "Restart"); 
@@ -32,7 +33,7 @@ void setup() {
 
 void reset_vars() {
   background(#B79D85);
-  p = new Pendulum(200, 200, rope_length, 90, candy_pic);
+  p = new Pendulum(200, 200, rope_length, 90, candy_pic, g);
   o = new OmNom(o_open, o_closed, o_sad, o_eating);
   len = new Button(100, 500, color(255,0,0), 25, "Length"); 
   restart = new Button(50, 500, color(0,0,255), 25, "Restart"); 
@@ -126,8 +127,36 @@ void keyPressed() {
             } else {
               message = "numbers 0-9 only please";
         }
-        }
-  }
+       }
+    }
+   else if (gravity.clicked) {
+     if (key == '\n' ) {
+        int grav = Integer.valueOf(gravity.i.text);
+        if (grav <= 300 && grav >= 50) {
+          g = grav;
+          message = "";
+         } else message = "please input a gravity value from 50 to 300";
+        rounds = 0;
+        reset_vars();
+         } else if (key==BACKSPACE){
+           if (gravity.i.text.length() > 0) {
+              gravity.i.text = gravity.i.text.substring(0, gravity.i.text.length() - 1);
+           } else {
+             gravity.i.text = "";
+           }
+          }
+          else if (gravity.i.text.length() > 2) {
+          message = "only 3 numbers";
+          } else {
+            if (key >= 48 && key <= 57) {
+               if (key == 48 && gravity.i.text.length() == 0) message = "no 0 in the front";
+                else gravity.i.text = gravity.i.text + key;
+            } else {
+              message = "numbers 0-9 only please";
+          }
+       }
+    }
+   
   }
 }
 
