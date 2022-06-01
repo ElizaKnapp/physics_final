@@ -10,12 +10,14 @@ Pendulum p;
 OmNom o;
 int rounds = 0; // this is the amount of rounds that have passed to calculuate when omnom's mouth is open
 boolean cut_yet = false;
-Button len, restart, gravity;
+Button len, restart, gravity, level2;
 int rope_length = 200;
 boolean round = true;
+boolean won;
 String message = "You have been placed on Jupiter to feed a cute alien" + '\n' + "in a rocketship. Click the space key to cut the rope.";
 int g = 25;
 int space = 0; // the amount of time it is in space
+boolean l2 = false;
 
 public void settings() {
   size(600, 600);
@@ -30,6 +32,8 @@ void setup() {
   len = new Button(100, 500, color(255,0,0), 25, "Length"); 
   restart = new Button(50, 500, color(0,0,255), 25, "Restart"); 
   gravity = new Button(150, 500, color(100, 100, 0), 25, "Gravity");
+  level2 = new Button(550, 50, color(0, 100, 100), 35, "Level 2");
+  won = false;
 }
 
 void reset_vars() {
@@ -39,11 +43,22 @@ void reset_vars() {
   len = new Button(100, 500, color(255,0,0), 25, "Length"); 
   restart = new Button(50, 500, color(0,0,255), 25, "Restart"); 
   gravity = new Button(150, 500, color(100, 100, 0), 25, "Gravity");
+  level2 = new Button(550, 50, color(0, 100, 100), 35, "Level 2");
+  won = false;
+}
 
+void setup2() {
+  background(0);
+  fill(255);
+  text("fdaijflajsflsdf", 200, 200);
+  l2 = true;
 }
 
 void draw() {
-  if (space > 0) {
+  if (l2) {
+    background(0);
+  }
+  else if (space > 0) {
     space --;
     background(0);
     image(rocket, 200, 200, 200, 200);
@@ -65,7 +80,7 @@ void draw() {
   textSize(20);
   textAlign(LEFT);
   if (message.equals("input: lengths 50-300")) fill(color(0,255,0));
-  else if (message.contains("Jupiter") || message.contains("rocket") || message.contains("pendulum")) fill(color(0,255,0));
+  else if (message.contains("Jupiter") || message.contains("rocket") || message.contains("pendulum") || message.contains("Good work!")) fill(color(0,255,0));
   else fill(color(255,0,0));
   text(message, 20, 100);
   textSize(12);
@@ -74,10 +89,16 @@ void draw() {
   len.display();
   restart.display();
   gravity.display();
+  if (!round && won) {
+    level2.display();
+    message = "Good work! Click the button on the top right to" + "\n" + "proceed to the next level";
+  }
   
   // omnom's picture
   o.check_eating_state(p.c);
+  if (o.eating) won = true;
   o.display();
+  
   
   // move and then display the pendulum
   p.move();
@@ -158,7 +179,7 @@ void keyPressed() {
         int grav = Integer.valueOf(gravity.i.text);
         if (grav <= 25 && grav >= 1) {
           g = grav;
-          space = 400;
+          space = 300;
           message = "You have traveled through space, notice how the period" + "\n" + "of the pendulum changes." + "\n" + "Click the space key to cut the rope.";
          } else message = "please input a gravity value from 1 to 25";
         rounds = 0;
@@ -234,5 +255,13 @@ void mouseClicked() {
     g = 25;
     reset_vars();
   }
-  
+  if (level2.on_button(mouseX, mouseY)) {
+    rounds = 0;
+    rope_length = 200;
+    cut_yet = false;
+    round = true;
+    message = "LEVEL 2";
+    g = 25;
+    setup2();
+  }
 }
