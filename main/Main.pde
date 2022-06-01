@@ -12,6 +12,7 @@ String message = "You have been placed on Jupiter to feed a cute alien" + '\n' +
 int g = 25;
 int space = 0; // the amount of time it is in space
 boolean l2 = false;
+Ramp r;
 
 public void settings() {
   size(600, 600);
@@ -22,7 +23,7 @@ void setup() {
   background(#B79D85);
   loadImages();
   p = new Pendulum(200, 200, rope_length, 90, candy_pic, g);
-  o = new OmNom(o_open, o_closed, o_sad, o_eating);
+  o = new OmNom(o_open, o_closed, o_sad, o_eating, 550, 550);
   len = new Button(100, 500, color(255,0,0), 25, "Length"); 
   restart = new Button(50, 500, color(0,0,255), 25, "Restart"); 
   gravity = new Button(150, 500, color(100, 100, 0), 25, "Gravity");
@@ -34,7 +35,7 @@ void setup() {
 void reset_vars() {
   background(#B79D85);
   p = new Pendulum(200, 200, rope_length, 90, candy_pic, g);
-  o = new OmNom(o_open, o_closed, o_sad, o_eating);
+  o = new OmNom(o_open, o_closed, o_sad, o_eating, 550, 550);
   len = new Button(100, 500, color(255,0,0), 25, "Length"); 
   restart = new Button(50, 500, color(0,0,255), 25, "Restart"); 
   gravity = new Button(150, 500, color(100, 100, 0), 25, "Gravity");
@@ -46,15 +47,16 @@ void reset_vars() {
 void setup2() {
   background(#B79D85);
   p = new Pendulum(200, 200, rope_length, 90, candy_pic, g);
-  o = new OmNom(o_open, o_closed, o_sad, o_eating);
+  o = new OmNom(o_open, o_closed, o_sad, o_eating, 300, 550);
   len = new Button(100, 500, color(255,0,0), 25, "Length"); 
   restart = new Button(50, 500, color(0,0,255), 25, "Restart"); 
   gravity = new Button(150, 500, color(100, 100, 0), 25, "Gravity");
   level1 = new Button(50, 50, color(0, 100, 100), 35, "Level 1");
   level2 = new Button(550, 50, color(0, 100, 100), 35, "Level 2");
   won = false;  
-  background(0);
   l2 = true;
+  // HERE GOES ALL THE INITIALIZATIONS SPECIFIC TO LEVEL 2
+  r = new Ramp();
 }
 
 void draw() {
@@ -78,6 +80,8 @@ void draw() {
   
   if (l2) {
     message = "WOOOO";
+    // HERE GOES ALL THINGS LEVEL 2 RELATED
+    r.display();
   }
   
   // display whatever the message is
@@ -263,7 +267,8 @@ void mouseClicked() {
     round = true;
     message = "You have been placed on Jupiter to feed a cute alien" + '\n' + "in a rocketship." + "\n" + "Click the space key to cut the rope.";
     g = 25;
-    reset_vars();
+    if (l2) setup2();
+    else reset_vars();
   }
   if (level2.on_button(mouseX, mouseY)) {
     rounds = 0;

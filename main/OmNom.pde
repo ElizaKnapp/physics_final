@@ -8,12 +8,14 @@ public class OmNom {
   int xPos = 550;
   int yPos = 550;
   
-  OmNom(PImage op, PImage cl, PImage sa, PImage[] eat) {
+  OmNom(PImage op, PImage cl, PImage sa, PImage[] eat, int x, int y) {
     o = op;
     c = cl;
     s = sa;
     e = eat;
     open = false;
+    xPos = x;
+    yPos = y;
   }
   
   /*
@@ -84,14 +86,14 @@ public class OmNom {
   
   void display() { 
     if (eating) {      
-      image(e[frame], 500, 500, 100, 100);
+      image(e[frame], xPos - 50, yPos - 50, 100, 100);
     } else {
       if (open) { 
-        image(o, 500, 500, 100, 100);
+        image(o, xPos - 50, yPos - 50, 100, 100);
       } else if (sad){
-        image(s, 500, 500, 100, 100);
+        image(s, xPos - 50, yPos - 50, 100, 100);
       } else {
-        image(c, 500, 500, 100, 100);
+        image(c, xPos - 50, yPos - 50, 100, 100);
       }
     }
   }
