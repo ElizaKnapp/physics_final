@@ -1,16 +1,10 @@
-/*
-BUGS!!!!!!
-The button clicking sensor senses the wrong location?
-*/
-
-
 PImage o_open, o_closed, o_sad, candy_pic, rocket, jupiter;
 PImage[] o_eating = new PImage[16];
 Pendulum p;
 OmNom o;
 int rounds = 0; // this is the amount of rounds that have passed to calculuate when omnom's mouth is open
 boolean cut_yet = false;
-Button len, restart, gravity, level2;
+Button len, restart, gravity, level2, level1;
 int rope_length = 200;
 boolean round = true;
 boolean won;
@@ -32,6 +26,7 @@ void setup() {
   len = new Button(100, 500, color(255,0,0), 25, "Length"); 
   restart = new Button(50, 500, color(0,0,255), 25, "Restart"); 
   gravity = new Button(150, 500, color(100, 100, 0), 25, "Gravity");
+  level1 = new Button(50, 50, color(0, 100, 100), 35, "Level 1");
   level2 = new Button(550, 50, color(0, 100, 100), 35, "Level 2");
   won = false;
 }
@@ -43,22 +38,27 @@ void reset_vars() {
   len = new Button(100, 500, color(255,0,0), 25, "Length"); 
   restart = new Button(50, 500, color(0,0,255), 25, "Restart"); 
   gravity = new Button(150, 500, color(100, 100, 0), 25, "Gravity");
+  level1 = new Button(50, 50, color(0, 100, 100), 35, "Level 1");
   level2 = new Button(550, 50, color(0, 100, 100), 35, "Level 2");
   won = false;
 }
 
 void setup2() {
+  background(#B79D85);
+  p = new Pendulum(200, 200, rope_length, 90, candy_pic, g);
+  o = new OmNom(o_open, o_closed, o_sad, o_eating);
+  len = new Button(100, 500, color(255,0,0), 25, "Length"); 
+  restart = new Button(50, 500, color(0,0,255), 25, "Restart"); 
+  gravity = new Button(150, 500, color(100, 100, 0), 25, "Gravity");
+  level1 = new Button(50, 50, color(0, 100, 100), 35, "Level 1");
+  level2 = new Button(550, 50, color(0, 100, 100), 35, "Level 2");
+  won = false;  
   background(0);
-  fill(255);
-  text("fdaijflajsflsdf", 200, 200);
   l2 = true;
 }
 
 void draw() {
-  if (l2) {
-    background(0);
-  }
-  else if (space > 0) {
+  if (space > 0) {
     space --;
     background(0);
     image(rocket, 200, 200, 200, 200);
@@ -76,6 +76,10 @@ void draw() {
   // wipe background
   background(#B79D85);
   
+  if (l2) {
+    message = "WOOOO";
+  }
+  
   // display whatever the message is
   textSize(20);
   textAlign(LEFT);
@@ -90,9 +94,15 @@ void draw() {
   restart.display();
   gravity.display();
   if (!round && won) {
-    level2.display();
-    message = "Good work! Click the button on the top right to" + "\n" + "proceed to the next level";
-  }
+    if (l2) {
+      level1.display();
+      message = "You've finished the game!" + "\n" + "You can go back to play level 1 again now";
+    } else {
+      level2.display();
+      message = "Good work! Click the button on the top right to" + "\n" + "proceed to the next level";
+    }
+
+  } 
   
   // omnom's picture
   o.check_eating_state(p.c);
@@ -263,5 +273,15 @@ void mouseClicked() {
     message = "LEVEL 2";
     g = 25;
     setup2();
+  }
+  if (level1.on_button(mouseX, mouseY)) {
+    rounds = 0;
+    rope_length = 200;
+    cut_yet = false;
+    round = true;
+    message = "Welcome back to level 1";
+    g = 25;
+    l2 = false;
+    reset_vars();
   }
 }
