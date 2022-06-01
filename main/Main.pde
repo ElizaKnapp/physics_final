@@ -46,7 +46,7 @@ void reset_vars() {
 
 void setup2() {
   background(#B79D85);
-  p = new Pendulum(200, 200, rope_length, 90, candy_pic, g);
+  p = new Pendulum(200, 100, rope_length, 90, candy_pic, g);
   o = new OmNom(o_open, o_closed, o_sad, o_eating, 300, 550);
   len = new Button(100, 500, color(255,0,0), 25, "Length"); 
   restart = new Button(50, 500, color(0,0,255), 25, "Restart"); 
@@ -79,19 +79,32 @@ void draw() {
   background(#B79D85);
   
   if (l2) {
-    message = "WOOOO";
     // HERE GOES ALL THINGS LEVEL 2 RELATED
     r.display();
+    
+    // display the level 2 message
+    textSize(20);
+    textAlign(LEFT);
+    if (message.contains("Jupiter") || message.contains("rocket") || message.contains("pendulum") 
+    || message.contains("Good work!") || message.contains("LEVEL 2") || message.contains("play level 1")) fill(color(0, 255, 0));
+    else fill(color(255,0,0));
+    if (message.contains("finished the game")) text(message, 100, 50);
+    else text(message, 20, 50);
+    textSize(12);
+    
   }
   
-  // display whatever the message is
-  textSize(20);
-  textAlign(LEFT);
-  if (message.equals("input: lengths 50-300")) fill(color(0,255,0));
-  else if (message.contains("Jupiter") || message.contains("rocket") || message.contains("pendulum") || message.contains("Good work!")) fill(color(0,255,0));
-  else fill(color(255,0,0));
-  text(message, 20, 100);
-  textSize(12);
+  if (!l2) {
+    // display whatever the message is FOR LEVEL 1
+    textSize(20);
+    textAlign(LEFT);
+    if (message.equals("input: lengths 50-300")) fill(color(0,255,0));
+    else if (message.contains("Jupiter") || message.contains("rocket") || message.contains("pendulum") 
+    || message.contains("Good work!") || message.contains("Welcome")) fill(color(0,255,0));
+    else fill(color(255,0,0));
+    text(message, 20, 100);
+    textSize(12);
+  }
    
   // display the buttons
   len.display();
@@ -110,9 +123,10 @@ void draw() {
   
   // omnom's picture
   o.check_eating_state(p.c);
-  if (o.eating) won = true;
+  if (o.eating) {
+    won = true;
+  }
   o.display();
-  
   
   // move and then display the pendulum
   p.move();
@@ -124,11 +138,6 @@ void draw() {
     o.next_img();
   }
   
-  /*
-  if (rounds % 20 == 0) {
-    o.change();
-  }
-  */
   rounds++;
   }
   
@@ -159,12 +168,16 @@ void keyPressed() {
       if (key == '\n' ) {
         try {
           int new_length = Integer.valueOf(len.i.text);
-            if (new_length <= 300 && new_length >= 50) {
+            if ( (new_length <= 300 && new_length >= 50 && !l2) || (new_length <= 200 && new_length >= 50 && l2)) {
               rope_length = new_length;
-              message = "Notice how the period of the pendulum changes" + "\n" + "with the different length" + '\n' + "Click the space key to cut the rope.";
-             } else message = "please input a length from 50 to 300";
+              message = "Notice how the period of the pendulum changes" + "\n" + "with the different length";
+             } else {
+               if (l2) message = "please input a length from 50 to 200";
+               else message = "please input a length from 50 to 300";
+             }
             rounds = 0;
-            reset_vars();
+            if (l2) setup2();
+            else reset_vars();
         } catch (Exception e) {
           // continue to find problem
         }
@@ -194,10 +207,11 @@ void keyPressed() {
         if (grav <= 25 && grav >= 1) {
           g = grav;
           space = 300;
-          message = "You have traveled through space, notice how the period" + "\n" + "of the pendulum changes." + "\n" + "Click the space key to cut the rope.";
+          message = "You have traveled through space, notice how the period" + "\n" + "of the pendulum changes.";
          } else message = "please input a gravity value from 1 to 25";
         rounds = 0;
-        reset_vars();
+        if (l2) setup2();
+        else reset_vars();
        } catch (Exception e) {
          // move on to find the problem
        }
@@ -233,7 +247,8 @@ void mouseClicked() {
       if (!len.clicked) {
         len.clicked = true;
         len.change_color(100);
-        message = "input: lengths 50-300";
+        if (l2) message = "input: lengths 50-200";
+        else message = "input: lengths 50-300";
       } else {
         len.clicked = false;
         len.change_color(len.og_c);
@@ -251,6 +266,7 @@ void mouseClicked() {
       if (!gravity.clicked) {
         gravity.clicked = true;
         gravity.change_color(100);
+        print("change mess");
         message = "Drive the rocket away from jupiter to adjust gravity" + '\n' + "Input values 0-25 m/s^2 for acc due to gravity";
       } else {
         gravity.clicked = false;
@@ -265,7 +281,8 @@ void mouseClicked() {
     rope_length = 200;
     cut_yet = false;
     round = true;
-    message = "You have been placed on Jupiter to feed a cute alien" + '\n' + "in a rocketship." + "\n" + "Click the space key to cut the rope.";
+    if (l2) message = "LEVEL 2. Click space to cut rope";
+    else message = "You have been placed on Jupiter to feed a cute alien" + '\n' + "in a rocketship." + "\n" + "Click the space key to cut the rope.";
     g = 25;
     if (l2) setup2();
     else reset_vars();
@@ -275,7 +292,7 @@ void mouseClicked() {
     rope_length = 200;
     cut_yet = false;
     round = true;
-    message = "LEVEL 2";
+    message = "LEVEL 2. Click space to cut rope";
     g = 25;
     setup2();
   }

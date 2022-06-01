@@ -4,7 +4,7 @@ public class Ramp {
   }
   
   void display() {
-    triangle(350, 450, 600, 0, 600, 450);
+    triangle(350, 450, 600, 250, 600, 450);
   }
   
 }
