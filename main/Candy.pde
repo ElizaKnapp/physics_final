@@ -3,6 +3,7 @@ public class Candy {
   int yPos;
   float v_x;
   float v_y;
+  float v_net;
   boolean vis = true;
   PImage pic;
   
@@ -26,6 +27,7 @@ public class Candy {
   void detatch(float vx, float vy) {
     v_x = vx;
     v_y = vy;
+    v_net = sqrt(pow(v_x,2) + pow(v_y, 2));
     // then, somehow calculate the motion differently!
     // create a c_move function for when the candy moves on it's own
   }

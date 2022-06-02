@@ -3,7 +3,9 @@ public class Pendulum {
    int yPos;
    Rope r;
    Candy c;
+   Platform plat;
    float curr_angle; // current angle from the center
+   float first_angle = 0.0; // angle when candy is first cut
    float a_acc = 0; // current acceleration
    float a_vel = 0; // current velocity
    // starts on jupiter
@@ -12,9 +14,10 @@ public class Pendulum {
    float s_end_x;
    float s_end_y;
    float damp_const = .9983;
+   boolean isntCalled = true;
    
    
-   Pendulum(int x, int y, float l, float angle, PImage p, int gr) {
+   Pendulum(int x, int y, float l, float angle, Platform pl, PImage p, int gr) {
      // creates a pendulum given the x and y pos and the length of the rope
      // the angle is the ANGLE FROM THE CENTER (negative if to the left, positive if to the right)
      xPos = x;
@@ -28,7 +31,7 @@ public class Pendulum {
      else if (l < 100) damp_const = 0.997;
      else if (l < 140) damp_const = 0.998;
      g = gr;
-    
+     plat = pl;
    }
    
    void display() {
@@ -45,6 +48,13 @@ public class Pendulum {
 
    }
   
+   float detatchAngle() {
+     if (!attached && isntCalled == true){
+        first_angle = curr_angle;
+        isntCalled = false;
+     }
+     return first_angle;
+   }
    
    void move() {
       if (attached) {
@@ -56,7 +66,37 @@ public class Pendulum {
         s_end_y = c.yPos;
 
       } else {
+        println(detatchAngle());
         c.move(g);
+        if (plat.inelasticC2(c) ) {
+          //println(curr_angle);
+          c.v_y = 0;
+          if (detatchAngle() < 0 && a_vel < 0) {
+            //println("on left go up");
+            //println(detatchAngle());
+            // if it's on the left and it's going up
+            c.v_x = -1 * abs(c.v_net * cos(radians(detatchAngle())));
+            println(c.v_x);
+          }
+          else if (detatchAngle() < 0 && a_vel >= 0) {
+            //println("on left go down");
+            // if it's on the left and it's going down
+            c.v_x = abs(c.v_net * cos(radians(detatchAngle())));
+            println(c.v_x);
+          }
+          else if (detatchAngle() >= 0 && a_vel >= 0) {
+            //println("on right go up");
+            // if it's on the right and it's going up
+            c.v_x = abs(c.v_net * cos(radians(detatchAngle())));
+            println(c.v_x);
+          } 
+          else {
+            //println("on right go down");
+            // if it's on the right and it's going down 
+            c.v_x = -1 * abs(c.v_net * cos(radians(detatchAngle())));
+            println(c.v_x);
+          }
+        }
         r.vis = false;
       }
       

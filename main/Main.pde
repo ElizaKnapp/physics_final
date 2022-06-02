@@ -2,6 +2,7 @@ PImage o_open, o_closed, o_sad, candy_pic, rocket, jupiter;
 PImage[] o_eating = new PImage[16];
 Pendulum p;
 OmNom o;
+Platform plat;
 int rounds = 0; // this is the amount of rounds that have passed to calculuate when omnom's mouth is open
 boolean cut_yet = false;
 Button len, restart, gravity, level2, level1;
@@ -22,7 +23,8 @@ void setup() {
   // frameRate(10);
   background(#B79D85);
   loadImages();
-  p = new Pendulum(200, 200, rope_length, 90, candy_pic, g);
+  plat = new Platform(0,250,400,20);
+  p = new Pendulum(200, 200, rope_length, 90, plat, candy_pic, g); //added plat
   o = new OmNom(o_open, o_closed, o_sad, o_eating, 550, 550);
   len = new Button(100, 500, color(255,0,0), 25, "Length"); 
   restart = new Button(50, 500, color(0,0,255), 25, "Restart"); 
@@ -34,7 +36,8 @@ void setup() {
 
 void reset_vars() {
   background(#B79D85);
-  p = new Pendulum(200, 200, rope_length, 90, candy_pic, g);
+  plat = new Platform(0,350,400,20);
+  p = new Pendulum(200, 200, rope_length, 90, plat, candy_pic, g); //added plat
   o = new OmNom(o_open, o_closed, o_sad, o_eating, 550, 550);
   len = new Button(100, 500, color(255,0,0), 25, "Length"); 
   restart = new Button(50, 500, color(0,0,255), 25, "Restart"); 
@@ -46,7 +49,8 @@ void reset_vars() {
 
 void setup2() {
   background(#B79D85);
-  p = new Pendulum(200, 100, rope_length, 90, candy_pic, g);
+  plat = new Platform(0,350,400,20);
+  p = new Pendulum(200, 100, rope_length, 90, plat, candy_pic, g); //added plat
   o = new OmNom(o_open, o_closed, o_sad, o_eating, 300, 550);
   len = new Button(100, 500, color(255,0,0), 25, "Length"); 
   restart = new Button(50, 500, color(0,0,255), 25, "Restart"); 
@@ -81,6 +85,7 @@ void draw() {
   if (l2) {
     // HERE GOES ALL THINGS LEVEL 2 RELATED
     r.display();
+    plat.display();
     
     // display the level 2 message
     textSize(20);
