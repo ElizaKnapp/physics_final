@@ -18,13 +18,7 @@ public class Platform {
     rect (x1, y1, x2, y2);
   }
   
-  boolean inelasticC (Candy c) {
-    float d = dist(c.xPos, y1, c.xPos, c.yPos);
-    //print(d);
-    return (d <= 3);
-  }
-  
-  boolean inelasticC2 (Candy c) {
+  boolean inelasticC (Candy c) { //inelastic collision with the platform, velocity is conserved
     float d = dist(c.xPos, y1, c.xPos, c.yPos);
     if (d <= 3 && c.xPos <= x2) {
       return true;

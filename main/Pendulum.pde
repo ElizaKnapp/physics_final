@@ -73,43 +73,35 @@ public class Pendulum {
       } else {
         println(detatchAngle());
         c.move(g);
-        if (plat.inelasticC2(c) ) {
-          //println(curr_angle);
+        if (plat.inelasticC(c) ) {
           c.v_y = 0;
           if (detatchAngle() < 0 && a_vel < 0) {
-            //println("on left go up");
-            //println(detatchAngle());
+            println("on left go up");
             // if it's on the left and it's going up
             c.v_x = -1 * abs(c.v_net * cos(radians(detatchAngle())));
             println(c.v_x);
           }
           else if (detatchAngle() < 0 && a_vel >= 0) {
-            //println("on left go down");
+            println("on left go down");
             // if it's on the left and it's going down
             c.v_x = abs(c.v_net * cos(radians(detatchAngle())));
             println(c.v_x);
           }
           else if (detatchAngle() >= 0 && a_vel >= 0) {
-            //println("on right go up");
+            println("on right go up");
             // if it's on the right and it's going up
             c.v_x = abs(c.v_net * cos(radians(detatchAngle())));
             println(c.v_x);
           } 
           else {
-            //println("on right go down");
+            println("on right go down");
             // if it's on the right and it's going down 
             c.v_x = -1 * abs(c.v_net * cos(radians(detatchAngle())));
             println(c.v_x);
           }
         }
         r.vis = false;
-      }
-      
-      //a_acc = -1 * g * sin(radians(curr_angle)) / (float)(r.len);
-      //curr_angle += a_vel;
-      //a_vel += a_acc;
-      //a_vel *= damp_const; // lol...
-      
+      }      
    }
    
    void split() {
