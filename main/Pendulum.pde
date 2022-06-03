@@ -64,6 +64,11 @@ public class Pendulum {
         else c.yPos = yPos + ceil(r.len * cos(radians(curr_angle)));
         s_end_x = c.xPos;
         s_end_y = c.yPos;
+        
+      a_acc = -1 * g * sin(radians(curr_angle)) / (float)(r.len);
+      curr_angle += a_vel;
+      a_vel += a_acc;
+      a_vel *= damp_const; // lol...
 
       } else {
         println(detatchAngle());
@@ -100,10 +105,10 @@ public class Pendulum {
         r.vis = false;
       }
       
-      a_acc = -1 * g * sin(radians(curr_angle)) / (float)(r.len);
-      curr_angle += a_vel;
-      a_vel += a_acc;
-      a_vel *= damp_const; // lol...
+      //a_acc = -1 * g * sin(radians(curr_angle)) / (float)(r.len);
+      //curr_angle += a_vel;
+      //a_vel += a_acc;
+      //a_vel *= damp_const; // lol...
       
    }
    
