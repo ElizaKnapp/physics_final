@@ -3,6 +3,7 @@ PImage[] o_eating = new PImage[16];
 Pendulum p;
 OmNom o;
 Platform plat;
+Ramp ramp;
 int rounds = 0; // this is the amount of rounds that have passed to calculuate when omnom's mouth is open
 boolean cut_yet = false;
 Button len, restart, gravity, level2, level1;
@@ -13,7 +14,6 @@ String message = "You have been placed on Jupiter to feed a cute alien" + '\n' +
 int g = 25;
 int space = 0; // the amount of time it is in space
 boolean l2 = false;
-Ramp r;
 
 public void settings() {
   size(600, 600);
@@ -23,8 +23,9 @@ void setup() {
   // frameRate(10);
   background(#B79D85);
   loadImages();
-  plat = new Platform(0,250,400,20);
-  p = new Pendulum(200, 200, rope_length, 90, plat, candy_pic, g); //added plat
+  plat = new Platform(0,0,0,0);
+  ramp = new Ramp (0,0,0,0);
+  p = new Pendulum(200, 200, rope_length, 90, plat, ramp, candy_pic, g); //added plat
   o = new OmNom(o_open, o_closed, o_sad, o_eating, 550, 550);
   len = new Button(100, 500, color(255,0,0), 25, "Length"); 
   restart = new Button(50, 500, color(0,0,255), 25, "Restart"); 
@@ -36,8 +37,9 @@ void setup() {
 
 void reset_vars() {
   background(#B79D85);
-  plat = new Platform(0,350,400,20);
-  p = new Pendulum(200, 200, rope_length, 90, plat, candy_pic, g); //added plat
+  plat = new Platform(0,0,0,0);
+  ramp = new Ramp(0, 0, 0, 0);
+  p = new Pendulum(200, 200, rope_length, 90, plat, ramp, candy_pic, g); //added plat
   o = new OmNom(o_open, o_closed, o_sad, o_eating, 550, 550);
   len = new Button(100, 500, color(255,0,0), 25, "Length"); 
   restart = new Button(50, 500, color(0,0,255), 25, "Restart"); 
@@ -50,7 +52,8 @@ void reset_vars() {
 void setup2() {
   background(#B79D85);
   plat = new Platform(0,350,400,20);
-  p = new Pendulum(200, 100, rope_length, 90, plat, candy_pic, g); //added plat
+  ramp = new Ramp(350, 600, 450, 250);
+  p = new Pendulum(200, 100, rope_length, 90, plat, ramp, candy_pic, g); //added plat
   o = new OmNom(o_open, o_closed, o_sad, o_eating, 300, 550);
   len = new Button(100, 500, color(255,0,0), 25, "Length"); 
   restart = new Button(50, 500, color(0,0,255), 25, "Restart"); 
@@ -60,7 +63,6 @@ void setup2() {
   won = false;  
   l2 = true;
   // HERE GOES ALL THE INITIALIZATIONS SPECIFIC TO LEVEL 2
-  r = new Ramp();
 }
 
 void draw() {
@@ -84,7 +86,7 @@ void draw() {
   
   if (l2) {
     // HERE GOES ALL THINGS LEVEL 2 RELATED
-    r.display();
+    ramp.display();
     plat.display();
     
     // display the level 2 message

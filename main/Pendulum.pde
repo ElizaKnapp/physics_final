@@ -4,6 +4,7 @@ public class Pendulum {
    Rope r;
    Candy c;
    Platform plat;
+   Ramp ramp;
    float curr_angle; // current angle from the center
    float first_angle = 0.0; // angle when candy is first cut
    float a_acc = 0; // current acceleration
@@ -15,9 +16,10 @@ public class Pendulum {
    float s_end_y;
    float damp_const = .9983;
    boolean isntCalled = true;
+   float v_xtemp; 
    
    
-   Pendulum(int x, int y, float l, float angle, Platform pl, PImage p, int gr) {
+   Pendulum(int x, int y, float l, float angle, Platform pl, Ramp ra, PImage p, int gr) {
      // creates a pendulum given the x and y pos and the length of the rope
      // the angle is the ANGLE FROM THE CENTER (negative if to the left, positive if to the right)
      xPos = x;
@@ -25,6 +27,7 @@ public class Pendulum {
      r = new Rope(l, angle);
      c = new Candy(x, y, l, angle, p);
      curr_angle = r.angle;
+     first_angle = curr_angle;
      s_end_x = c.xPos;
      s_end_y = c.yPos;
      if (l < 80) damp_const = .994;
@@ -32,6 +35,7 @@ public class Pendulum {
      else if (l < 140) damp_const = 0.998;
      g = gr;
      plat = pl;
+     ramp = ra;
    }
    
    void display() {
@@ -71,37 +75,41 @@ public class Pendulum {
       a_vel *= damp_const; // lol...
 
       } else {
-        println(detatchAngle());
         c.move(g);
         if (plat.inelasticC(c) ) {
           c.v_y = 0;
           if (detatchAngle() < 0 && a_vel < 0) {
-            println("on left go up");
+            //println("on left go up");
             // if it's on the left and it's going up
             c.v_x = -1 * abs(c.v_net * cos(radians(detatchAngle())));
-            println(c.v_x);
           }
           else if (detatchAngle() < 0 && a_vel >= 0) {
-            println("on left go down");
+            //println("on left go down");
             // if it's on the left and it's going down
             c.v_x = abs(c.v_net * cos(radians(detatchAngle())));
-            println(c.v_x);
           }
           else if (detatchAngle() >= 0 && a_vel >= 0) {
-            println("on right go up");
+            //println("on right go up");
             // if it's on the right and it's going up
             c.v_x = abs(c.v_net * cos(radians(detatchAngle())));
-            println(c.v_x);
           } 
           else {
-            println("on right go down");
+            //println("on right go down");
             // if it's on the right and it's going down 
             c.v_x = -1 * abs(c.v_net * cos(radians(detatchAngle())));
-            println(c.v_x);
           }
         }
+        else if (ramp.inelasticC(c)) {
+          println("hit ramp"); //means the hitting the ramp should work
+          c.move(g);
+          v_xtemp = c.v_x;
+          c.v_x = -1 * v_xtemp;
+          c.v_y +=g;
+          //lmao it  bounces somewhere
+        }
         r.vis = false;
-      }      
+      }
+      
    }
    
    void split() {
