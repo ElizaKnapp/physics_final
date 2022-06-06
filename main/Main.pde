@@ -6,7 +6,7 @@ Platform plat;
 Ramp ramp;
 int rounds = 0; // this is the amount of rounds that have passed to calculuate when omnom's mouth is open
 boolean cut_yet = false;
-Button len, restart, gravity, level2, level1;
+Button len, restart, gravity, level2, level1, angle;
 int rope_length = 200;
 boolean round = true;
 boolean won;
@@ -63,6 +63,7 @@ void setup2() {
   level2 = new Button(550, 50, color(0, 100, 100), 35, "Level 2");
   won = false;  
   l2 = true;
+    
   // HERE GOES ALL THE INITIALIZATIONS SPECIFIC TO LEVEL 2
 }
 
@@ -118,6 +119,7 @@ void draw() {
   len.display();
   restart.display();
   gravity.display();
+  print(round);
   if (!round && won) {
     if (l2) {
       level1.display();
@@ -133,6 +135,7 @@ void draw() {
   o.check_eating_state(p.c);
   if (o.eating) {
     won = true;
+    round = false;
   }
   o.display();
   
@@ -289,7 +292,7 @@ void mouseClicked() {
     rope_length = 200;
     cut_yet = false;
     round = true;
-    if (l2) message = "LEVEL 2. Click space to cut rope";
+    if (l2) message = "LEVEL 2. Click space to cut rope. A reminder that when" + "\n" + "the ball hits the ramp, the collision is perfectly inelastic";
     else message = "You have been placed on Jupiter to feed a cute alien" + '\n' + "in a rocketship." + "\n" + "Click the space key to cut the rope.";
     g = 25;
     if (l2) setup2();
@@ -300,7 +303,7 @@ void mouseClicked() {
     rope_length = 200;
     cut_yet = false;
     round = true;
-    message = "LEVEL 2. Click space to cut rope";
+    message = "LEVEL 2. Click space to cut rope. A reminder that when" + "\n" + "the ball hits the ramp, the collision is perfectly inelastic";
     g = 25;
     setup2();
   }
