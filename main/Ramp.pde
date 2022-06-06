@@ -22,12 +22,6 @@ public class Ramp {
     float slope = (float(y1) - float(y2)) / (float(x1) - float(x2));
     yRPos = slope * c.xPos + 730;
     float d = dist(c.xPos, yRPos, c.xPos, c.yPos);
-    if (d <= 6 && c.xPos >= 350) {
-      return true;
-    }
-      else{
-        return false;
-      }
+    return (d <= 6 && c.xPos >= 350);
   }
-  
 }

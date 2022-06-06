@@ -20,12 +20,7 @@ public class Platform {
   
   boolean inelasticC (Candy c) {
     float d = dist(c.xPos, y1, c.xPos, c.yPos);
-    if (d <= 5 && c.xPos <= x2) {
-      return true;
-    }
-      else{
-        return false;
-      }
+    return (d <= 5 && c.xPos <= x2);
   }
   
 }

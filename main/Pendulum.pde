@@ -69,10 +69,10 @@ public class Pendulum {
         s_end_x = c.xPos;
         s_end_y = c.yPos;
         
-      a_acc = -1 * g * sin(radians(curr_angle)) / (float)(r.len);
-      curr_angle += a_vel;
-      a_vel += a_acc;
-      a_vel *= damp_const; // lol...
+        a_acc = -1 * g * sin(radians(curr_angle)) / (float)(r.len);
+        curr_angle += a_vel;
+        a_vel += a_acc;
+        a_vel *= damp_const; // lol...
 
       } else {
         c.move(g);
@@ -101,11 +101,7 @@ public class Pendulum {
         }
         else if (ramp.inelasticC(c)) {
           println("hit ramp"); //means the hitting the ramp should work
-          c.move(g);
-          v_xtemp = c.v_x;
-          c.v_x = -1 * v_xtemp;
-          c.v_y +=g;
-          //lmao it  bounces somewhere
+          c.move_ramp(g);
         }
         r.vis = false;
       }

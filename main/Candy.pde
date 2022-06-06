@@ -37,6 +37,9 @@ public class Candy {
     xPos += (int)(v_x / 100);
     yPos += (int)(v_y / 100);
     v_y += gravity;
-
+  }
+  
+  void move_ramp(float gravity) {
+    // this is for the ramp
   }
 }
