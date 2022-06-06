@@ -6,12 +6,15 @@ public class Candy {
   float v_net;
   boolean vis = true;
   PImage pic;
+  float theta;
+  float mass;
   
-  Candy(int x, int y, float l, float angle, PImage p) {
+  Candy(int x, int y, float l, float angle, PImage p, float m) {
     // the initial x and y position are calculated from pendulum's root and rope vars
     xPos = x + (int)(l * sin(radians(angle)));
     yPos = y + (int)(l * cos(radians(angle))); // it's + because in processing, the top left corner is 0,0   
     pic = p;
+    mass = m;
   }
   
   void display() {
@@ -37,9 +40,16 @@ public class Candy {
     xPos += (int)(v_x / 100);
     yPos += (int)(v_y / 100);
     v_y += gravity;
+
   }
   
-  void move_ramp(float gravity) {
-    // this is for the ramp
+  void move_ramp(float gravity, Ramp ramp, float friction) {
+    // the v_net now is in the correct direction! now... 
+    v_x = -1 * v_net * cos(radians(ramp.angle));
+    v_y = v_net * sin(radians(ramp.angle));
+    xPos += (int)(v_x / 100); // minus cuz down the ramp lol
+    yPos += (int)(v_y / 100);
+    v_net += (mass * gravity * sin(radians(ramp.angle))/ 50);
+    
   }
 }

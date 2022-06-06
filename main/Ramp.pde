@@ -5,18 +5,32 @@ public class Ramp {
   int x2; 
   int y1;
   int y2;
+  float angle;
+  
   Ramp(int x1pos, int x2pos, int y1pos, int y2pos) {
     x1 = x1pos;
     x2 = x2pos; 
     y1 = y1pos; 
     y2 = y2pos;
+    
+    print("creating ramp");
+    print(x1);
+    print(x2);
+    print(y1);
+    print(y2);
+    if (x2 != x1){
+      angle = atan2(y1 - y2, x2 - x1);
+      angle = degrees(angle);
+      print(angle);
+    }
+    else angle = 0;
     //350, 600, 450, 250
   }
   
   void display() {
     //triangle(350, 450, 600, 250, 600, 450);
     triangle(x1, y1, x2, y2, x2, y1);
-  }
+  } 
   
   boolean inelasticC (Candy c) {
     float slope = (float(y1) - float(y2)) / (float(x1) - float(x2));

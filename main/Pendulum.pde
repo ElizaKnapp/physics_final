@@ -17,15 +17,17 @@ public class Pendulum {
    float damp_const = .9983;
    boolean isntCalled = true;
    float v_xtemp; 
+   float friction = 0; // CHANGE AT ANOTHER TIME
+   boolean hit_ramp;
    
    
-   Pendulum(int x, int y, float l, float angle, Platform pl, Ramp ra, PImage p, int gr) {
+   Pendulum(int x, int y, float l, float angle, Platform pl, Ramp ra, PImage p, int gr, float m) {
      // creates a pendulum given the x and y pos and the length of the rope
      // the angle is the ANGLE FROM THE CENTER (negative if to the left, positive if to the right)
      xPos = x;
      yPos = y;
      r = new Rope(l, angle);
-     c = new Candy(x, y, l, angle, p);
+     c = new Candy(x, y, l, angle, p, m);
      curr_angle = r.angle;
      first_angle = curr_angle;
      s_end_x = c.xPos;
@@ -36,6 +38,7 @@ public class Pendulum {
      g = gr;
      plat = pl;
      ramp = ra;
+     hit_ramp = false;
    }
    
    void display() {
@@ -75,6 +78,7 @@ public class Pendulum {
         a_vel *= damp_const; // lol...
 
       } else {
+
         c.move(g);
         if (plat.inelasticC(c) ) {
           c.v_y = 0;
@@ -101,7 +105,16 @@ public class Pendulum {
         }
         else if (ramp.inelasticC(c)) {
           println("hit ramp"); //means the hitting the ramp should work
-          c.move_ramp(g);
+          // change the angle stuff ONCE here
+          // hehehe inelastic!
+          if (!hit_ramp) {
+            c.v_y = 0;
+            c.v_y = 0;
+            c.v_net = 0;
+            hit_ramp = true;
+          }
+          // set the v x and vy accordinly
+          c.move_ramp(g, ramp, friction);
         }
         r.vis = false;
       }

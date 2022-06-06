@@ -14,6 +14,7 @@ String message = "You have been placed on Jupiter to feed a cute alien" + '\n' +
 int g = 25;
 int space = 0; // the amount of time it is in space
 boolean l2 = false;
+float mass = 50; // mass of the candy
 
 public void settings() {
   size(600, 600);
@@ -25,7 +26,7 @@ void setup() {
   loadImages();
   plat = new Platform(0,0,0,0);
   ramp = new Ramp (0,0,0,0);
-  p = new Pendulum(200, 200, rope_length, 90, plat, ramp, candy_pic, g); //added plat
+  p = new Pendulum(200, 200, rope_length, 90, plat, ramp, candy_pic, g, mass); //added plat
   o = new OmNom(o_open, o_closed, o_sad, o_eating, 550, 550);
   len = new Button(100, 500, color(255,0,0), 25, "Length"); 
   restart = new Button(50, 500, color(0,0,255), 25, "Restart"); 
@@ -39,7 +40,7 @@ void reset_vars() {
   background(#B79D85);
   plat = new Platform(0,0,0,0);
   ramp = new Ramp(0, 0, 0, 0);
-  p = new Pendulum(200, 200, rope_length, 90, plat, ramp, candy_pic, g); //added plat
+  p = new Pendulum(200, 200, rope_length, 90, plat, ramp, candy_pic, g, mass); //added plat
   o = new OmNom(o_open, o_closed, o_sad, o_eating, 550, 550);
   len = new Button(100, 500, color(255,0,0), 25, "Length"); 
   restart = new Button(50, 500, color(0,0,255), 25, "Restart"); 
@@ -53,7 +54,7 @@ void setup2() {
   background(#B79D85);
   plat = new Platform(0,350,400,20);
   ramp = new Ramp(350, 600, 450, 250);
-  p = new Pendulum(200, 100, rope_length, 90, plat, ramp, candy_pic, g); //added plat
+  p = new Pendulum(200, 100, rope_length, 90, plat, ramp, candy_pic, g, mass); //added plat
   o = new OmNom(o_open, o_closed, o_sad, o_eating, 300, 550);
   len = new Button(100, 500, color(255,0,0), 25, "Length"); 
   restart = new Button(50, 500, color(0,0,255), 25, "Restart"); 
