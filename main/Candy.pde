@@ -74,6 +74,10 @@ public class Candy {
       yPos += (int)(v_y / 100);
       v_net += radius * a_acc;
     }
-    
   }
+  
+  float velocity(){
+    return v_net;
+  }
+  
 }

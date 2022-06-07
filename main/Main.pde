@@ -166,6 +166,13 @@ void draw() {
   p.move();
   p.display();
   
+  // display the velocity of the candy
+  textSize(20);
+  fill(#08d1b3);
+  text(str(p.velocity()),550,30);
+  textSize(12);
+  fill(#F57474);
+  
   if (p.c.xPos > 600) round = false;
   
   if (rounds % 2 == 0) {

@@ -104,7 +104,6 @@ public class Pendulum {
           }
         }
         else if (ramp.inelasticC(c)) {
-          println("hit ramp"); //means the hitting the ramp should work
           // change the angle stuff ONCE here
           // hehehe inelastic!
           if (!hit_ramp) {
@@ -118,7 +117,10 @@ public class Pendulum {
         }
         r.vis = false;
       }
-      
+   }
+   
+   float velocity(){
+     return c.velocity();
    }
    
    void split() {
