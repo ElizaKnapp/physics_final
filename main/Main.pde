@@ -424,7 +424,7 @@ void mouseClicked() {
       if (!mass_b.clicked) {
         mass_b.clicked = true;
         mass_b.change_color(100); // HERE FOR FRICTION IT WLD CHANGE TEXT TOO!!
-        if (l2) message = "input: masses from 10 to 400 kg";
+        if (l2) message = "input: masses from 10 to 400 kgs";
       } else {
         mass_b.clicked = false;
         mass_b.change_color(mass_b.og_c);
