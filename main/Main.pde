@@ -1,4 +1,4 @@
-PImage o_open, o_closed, o_sad, candy_pic, rocket, jupiter;
+PImage o_open, o_closed, o_sad, candy_pic, rocket, jupiter, choking_omnom;
 PImage[] o_eating = new PImage[16];
 Pendulum p;
 OmNom o;
@@ -28,7 +28,7 @@ void setup() {
   plat = new Platform(0,0,0,0);
   ramp = new Ramp (0,0,0,0);
   p = new Pendulum(200, 200, rope_length, 90, plat, ramp, candy_pic, g, mass); //added plat
-  o = new OmNom(o_open, o_closed, o_sad, o_eating, 550, 550);
+  o = new OmNom(o_open, o_closed, o_sad, o_eating, 550, 550, choking_omnom);
   len = new Button(100, 500, color(255,0,0), 25, "Length"); 
   restart = new Button(50, 500, color(0,0,255), 25, "Restart"); 
   gravity = new Button(150, 500, color(100, 100, 0), 25, "Gravity");
@@ -42,7 +42,7 @@ void reset_vars() {
   plat = new Platform(0,0,0,0);
   ramp = new Ramp(0, 0, 0, 0);
   p = new Pendulum(200, 200, rope_length, 90, plat, ramp, candy_pic, g, mass); //added plat
-  o = new OmNom(o_open, o_closed, o_sad, o_eating, 550, 550);
+  o = new OmNom(o_open, o_closed, o_sad, o_eating, 550, 550, choking_omnom);
   len = new Button(100, 500, color(255,0,0), 25, "Length"); 
   restart = new Button(50, 500, color(0,0,255), 25, "Restart"); 
   gravity = new Button(150, 500, color(100, 100, 0), 25, "Gravity");
@@ -56,7 +56,7 @@ void setup2() {
   plat = new Platform(0,350,300,20);
   ramp = new Ramp(350, 600, 450, ramp_y2);
   p = new Pendulum(200, 100, rope_length, 90, plat, ramp, candy_pic, g, mass); //added plat
-  o = new OmNom(o_open, o_closed, o_sad, o_eating, 300, 550);
+  o = new OmNom(o_open, o_closed, o_sad, o_eating, 300, 550, choking_omnom);
   len = new Button(100, 500, color(255,0,0), 25, "Length"); 
   restart = new Button(50, 500, color(0,0,255), 25, "Restart"); 
   gravity = new Button(150, 500, color(100, 100, 0), 25, "Gravity");
@@ -106,6 +106,10 @@ void draw() {
     else fill(color(255,0,0));
     if (message.contains("finished the game")) text(message, 100, 50);
     else text(message, 20, 50);
+    textSize(15);
+    fill(color(0, 0, 255));
+    text("Make sure the velocity isn't" + "\n" + "too fast! Otherwise" + "\n" + 
+     "OmNom will choke", 380, 500);
     textSize(12);
     // display the angle button
     angle.display();
@@ -141,7 +145,10 @@ void draw() {
   } 
   
   // omnom's picture
-  o.check_eating_state(p.c);
+  o.check_eating_state(p.c, l2);
+  if (o.choking) {
+    message = "The velocity of the candy was too fast! OmNom choked!";
+  }
   if (o.eating) {
     won = true;
     round = false;
@@ -174,6 +181,7 @@ void loadImages() {
   candy_pic = loadImage("candy.png");
   rocket = loadImage("rocket.png");
   jupiter = loadImage("jupiter.png");
+  choking_omnom = loadImage("sad8.png"); // RANDOM IMAGE FOR NOW, better later!
 }
 
 void keyPressed() {
