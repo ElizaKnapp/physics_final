@@ -17,7 +17,7 @@ public class Pendulum {
    float damp_const = .9983;
    boolean isntCalled = true;
    float v_xtemp; 
-   float friction = 0; // CHANGE AT ANOTHER TIME
+   boolean friction = false; // CHANGE AT ANOTHER TIME
    boolean hit_ramp;
    
    

@@ -23,7 +23,7 @@ public void settings() {
 }
 
 void setup() {
-  // frameRate(10);
+  //frameRate(10);
   background(#B79D85);
   loadImages();
   plat = new Platform(0,0,0,0);
@@ -393,7 +393,7 @@ void mouseClicked() {
       if (!gravity.clicked) {
         gravity.clicked = true;
         gravity.change_color(100);
-        message = "Drive the rocket away from jupiter to adjust gravity" + '\n' + "Input values 0-25 m/s^2 for acc due to gravity";
+        message = "Drive the rocket away from jupiter to adjust gravity" + '\n' + "Input values 1-25 m/s^2 for acc due to gravity";
       } else {  
         gravity.clicked = false;
         gravity.change_color(gravity.og_c);
@@ -487,11 +487,13 @@ void mouseClicked() {
         friction.clicked = true;
         friction.change_color(100); // HERE FOR FRICTION IT WLD CHANGE TEXT TOO!!
         friction.name = "Friction" + "\n" + "On";
+        p.friction = true;
         if (l2) message = "Friction is on! Notice the rolling";
       } else {
         friction.clicked = false;
         friction.change_color(friction.og_c);
         friction.name = "Friction" + "\n" + "Off";
+        p.friction = false;
         message = "Friction is off!";
       }  
     }

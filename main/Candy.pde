@@ -8,6 +8,10 @@ public class Candy {
   PImage pic;
   float theta;
   float mass;
+  float radius;
+  float a_acc;
+  float a_pos = 0;
+  float a_vel = 0;
   
   Candy(int x, int y, float l, float angle, PImage p, float m) {
     // the initial x and y position are calculated from pendulum's root and rope vars
@@ -15,6 +19,7 @@ public class Candy {
     yPos = y + (int)(l * cos(radians(angle))); // it's + because in processing, the top left corner is 0,0   
     pic = p;
     mass = m;
+    radius = 30 * mass/100;
   }
   
   void display() {
@@ -22,7 +27,12 @@ public class Candy {
       // this 30 is the entire length, not the radius!
       // ellipse(xPos, yPos, 30, 30);
       imageMode(CENTER);
-      image(pic, xPos, yPos, 30 * mass/100, 30 * mass/100);
+      image(pic, xPos, yPos, radius, radius);
+      pushMatrix();
+      translate(xPos, yPos);
+      rotate(radians(a_pos));
+      image(pic, 0, 0, radius, radius);
+      popMatrix();
       imageMode(CORNER);
     }
   }
@@ -43,13 +53,27 @@ public class Candy {
 
   }
   
-  void move_ramp(float gravity, Ramp ramp, float friction) {
-    // the v_net now is in the correct direction! now... 
-    v_x = -1 * v_net * cos(radians(ramp.angle));
-    v_y = v_net * sin(radians(ramp.angle));
-    xPos += (int)(v_x / 100); // minus cuz down the ramp lol
-    yPos += (int)(v_y / 100);
-    v_net += (gravity * sin(radians(ramp.angle)));
+  void move_ramp(float gravity, Ramp ramp, boolean friction) {
+    if (!friction) {
+      // the v_net now is in the correct direction! now... 
+      v_x = -1 * v_net * cos(radians(ramp.angle));
+      v_y = v_net * sin(radians(ramp.angle));
+      xPos += (int)(v_x / 100); // minus cuz down the ramp lol
+      yPos += (int)(v_y / 100);
+      v_net += (gravity * sin(radians(ramp.angle)));
+    } else {
+      // friction rolling
+      a_acc = gravity * sin(radians(ramp.angle)) / radius;
+      
+      a_pos -= (a_vel / 2);
+      a_vel += a_acc;
+      
+      v_x = -1 * v_net * cos(radians(ramp.angle));
+      v_y = v_net * sin(radians(ramp.angle));
+      xPos += (int)(v_x / 100); // minus cuz down the ramp lol
+      yPos += (int)(v_y / 100);
+      v_net += radius * a_acc;
+    }
     
   }
 }
