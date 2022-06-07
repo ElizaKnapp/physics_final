@@ -117,7 +117,10 @@ public class Pendulum {
         }
         r.vis = false;
       }
-      
+   }
+   
+   float velocity(){
+     return c.velocity();
    }
    
    void split() {
