@@ -102,7 +102,7 @@ void draw() {
     if (message.contains("Jupiter") || message.contains("rocket") || message.contains("pendulum") 
     || message.contains("Good work!") || message.contains("LEVEL 2") || message.contains("play level 1")
     || message.contains("candy mass") || message.contains("ramp has changed") || message.contains("input: len")
-    || message.contains("masses from 10 to 400 kgs") || message.contains("input: angles 10 to 70 degrees")
+    || message.contains("masses from 10 to 300 kgs") || message.contains("input: angles 10 to 70 degrees")
     || message.contains("Friction")){
       fill(color(0, 255, 0));
     }
@@ -306,11 +306,11 @@ void keyPressed() {
       if (key == '\n' ) {
         try {
           int new_mass = Integer.valueOf(mass_b.i.text);
-            if (new_mass <= 400 && new_mass >= 10 && l2) { // RECONSIDER THESE BOUNDS
+            if (new_mass <= 300 && new_mass >= 10 && l2) { // RECONSIDER THESE BOUNDS
               mass = new_mass;
               message = "The candy mass has changed!";
              } else {
-               if (l2) message = "please input a mass between 10 and 400 kgs";
+               if (l2) message = "please input a mass between 10 and 300 kgs";
              }
             rounds = 0;
             if (l2) setup2();
@@ -455,7 +455,7 @@ void mouseClicked() {
       if (!mass_b.clicked) {
         mass_b.clicked = true;
         mass_b.change_color(100);
-        if (l2) message = "input: masses from 10 to 400 kgs";
+        if (l2) message = "input: masses from 10 to 300 kgs";
       } else {
         mass_b.clicked = false;
         mass_b.change_color(mass_b.og_c);
