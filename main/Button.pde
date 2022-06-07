@@ -5,7 +5,7 @@ public class Button {
   int r;
   color c;
   color og_c;
-  String name;
+  String name = "";
   Input i;
   
   
@@ -25,7 +25,7 @@ public class Button {
     fill(255);
     textAlign(CENTER);
     text(name, xPos, yPos);
-    if (clicked) {
+    if (clicked && !name.contains("Friction")) {
       i.display();
     }
   }

@@ -6,7 +6,7 @@ Platform plat;
 Ramp ramp;
 int rounds = 0; // this is the amount of rounds that have passed to calculuate when omnom's mouth is open
 boolean cut_yet = false;
-Button len, restart, gravity, level2, level1, angle, mass_b;
+Button len, restart, gravity, level2, level1, angle, mass_b, friction;
 int rope_length = 200;
 boolean round = true;
 boolean won;
@@ -16,6 +16,7 @@ int space = 0; // the amount of time it is in space
 boolean l2 = false;
 float mass = 50; // mass of the candy
 int ramp_y2 = 250; // starting y2 (will change later!)
+boolean friction_on = false;
 
 public void settings() {
   size(600, 600);
@@ -62,6 +63,7 @@ void setup2() {
   gravity = new Button(150, 500, color(100, 100, 0), 25, "Gravity");
   angle = new Button(50, 550, color(100, 0, 100), 25, "Angle");
   mass_b = new Button(100, 550, color(0, 100, 100), 25, "Mass");
+  friction = new Button(150, 550, color(100, 50, 180), 25, "Friction" + "\n" + "Off");
   level1 = new Button(50, 50, color(0, 100, 100), 35, "Level 1");
   level2 = new Button(550, 50, color(0, 100, 100), 35, "Level 2");
   won = false;  
@@ -100,7 +102,8 @@ void draw() {
     if (message.contains("Jupiter") || message.contains("rocket") || message.contains("pendulum") 
     || message.contains("Good work!") || message.contains("LEVEL 2") || message.contains("play level 1")
     || message.contains("candy mass") || message.contains("ramp has changed") || message.contains("input: len")
-    || message.contains("masses from 10 to 400 kgs") || message.contains("input: angles 10 to 70 degrees")){
+    || message.contains("masses from 10 to 400 kgs") || message.contains("input: angles 10 to 70 degrees")
+    || message.contains("Friction")){
       fill(color(0, 255, 0));
     }
     else fill(color(255,0,0));
@@ -114,6 +117,9 @@ void draw() {
     // display the angle button
     angle.display();
     mass_b.display();
+    friction.display();
+    
+    
     
   }
   
@@ -348,6 +354,10 @@ void mouseClicked() {
         mass_b.clicked = false;
         mass_b.change_color(mass_b.og_c);
       }
+      if (l2 && friction.clicked) { 
+        friction.clicked = false;
+        friction.change_color(angle.og_c);
+      }
       if (!len.clicked) {
         len.clicked = true;
         len.change_color(100);
@@ -375,6 +385,10 @@ void mouseClicked() {
         mass_b.clicked = false;
         mass_b.change_color(mass_b.og_c);
       }
+      if (l2 && friction.clicked) { 
+        friction.clicked = false;
+        friction.change_color(angle.og_c);
+      }
       if (!gravity.clicked) {
         gravity.clicked = true;
         gravity.change_color(100);
@@ -400,6 +414,10 @@ void mouseClicked() {
       if (l2 && mass_b.clicked) {
         mass_b.clicked = false;
         mass_b.change_color(mass_b.og_c);
+      }
+      if (l2 && friction.clicked) { 
+        friction.clicked = false;
+        friction.change_color(angle.og_c);
       }
       if (!angle.clicked) {
         angle.clicked = true;
@@ -429,15 +447,51 @@ void mouseClicked() {
         angle.clicked = false;
         angle.change_color(angle.og_c);
       }
+      if (l2 && friction.clicked) { 
+        friction.clicked = false;
+        friction.change_color(angle.og_c);
+      }
       if (!mass_b.clicked) {
         mass_b.clicked = true;
-        mass_b.change_color(100); // HERE FOR FRICTION IT WLD CHANGE TEXT TOO!!
+        mass_b.change_color(100);
         if (l2) message = "input: masses from 10 to 400 kgs";
       } else {
         mass_b.clicked = false;
         mass_b.change_color(mass_b.og_c);
         mass_b.i.text = "";
         message = "";
+      }  
+    }
+  }
+  
+  if (l2 && friction.on_button(mouseX, mouseY)) {
+    if (round) {
+      if (len.clicked) {
+        len.clicked = false;
+        len.change_color(angle.og_c);
+      }
+      if (gravity.clicked) {
+        gravity.clicked = false;
+        gravity.change_color(gravity.og_c);
+      }
+      if (l2 && angle.clicked) { // ik l2 is redundant but this decreases my future copy paste errors lol
+        angle.clicked = false;
+        angle.change_color(angle.og_c);
+      }
+      if (l2 && mass_b.clicked) {
+        mass_b.clicked = false;
+        mass_b.change_color(mass_b.og_c);
+      }
+      if (!friction.clicked) {
+        friction.clicked = true;
+        friction.change_color(100); // HERE FOR FRICTION IT WLD CHANGE TEXT TOO!!
+        friction.name = "Friction" + "\n" + "On";
+        if (l2) message = "Friction is on! Notice the rolling";
+      } else {
+        friction.clicked = false;
+        friction.change_color(friction.og_c);
+        friction.name = "Friction" + "\n" + "Off";
+        message = "Friction is off!";
       }  
     }
   }
