@@ -15,6 +15,7 @@ int g = 25;
 int space = 0; // the amount of time it is in space
 boolean l2 = false;
 float mass = 50; // mass of the candy
+int ramp_y2 = 250; // starting y2 (will change later!)
 
 public void settings() {
   size(600, 600);
@@ -52,13 +53,14 @@ void reset_vars() {
 
 void setup2() {
   background(#B79D85);
-  plat = new Platform(0,350,400,20);
-  ramp = new Ramp(350, 600, 450, 250);
+  plat = new Platform(0,350,300,20);
+  ramp = new Ramp(350, 600, 450, ramp_y2);
   p = new Pendulum(200, 100, rope_length, 90, plat, ramp, candy_pic, g, mass); //added plat
   o = new OmNom(o_open, o_closed, o_sad, o_eating, 300, 550);
   len = new Button(100, 500, color(255,0,0), 25, "Length"); 
   restart = new Button(50, 500, color(0,0,255), 25, "Restart"); 
   gravity = new Button(150, 500, color(100, 100, 0), 25, "Gravity");
+  angle = new Button(50, 550, color(100, 0, 100), 25, "Angle");
   level1 = new Button(50, 50, color(0, 100, 100), 35, "Level 1");
   level2 = new Button(550, 50, color(0, 100, 100), 35, "Level 2");
   won = false;  
@@ -100,6 +102,8 @@ void draw() {
     if (message.contains("finished the game")) text(message, 100, 50);
     else text(message, 20, 50);
     textSize(12);
+    // display the angle button
+    angle.display();
     
   }
   
@@ -119,7 +123,6 @@ void draw() {
   len.display();
   restart.display();
   gravity.display();
-  print(round);
   if (!round && won) {
     if (l2) {
       level1.display();
@@ -243,6 +246,40 @@ void keyPressed() {
               message = "numbers 0-9 only please";
           }
        }
+    } else if (angle.clicked) {
+
+      if (key == '\n' ) {
+        try {
+          int new_angle = Integer.valueOf(angle.i.text);
+            if (new_angle <= 70 && new_angle >= 10 && l2) {
+              ramp_y2 = ramp.change_angle(new_angle);
+              message = "The ramp has changed!";
+             } else {
+               if (l2) message = "please input an angle between 10 and 70 degrees";
+             }
+            rounds = 0;
+            if (l2) setup2();
+        } catch (Exception e) {
+          // continue to find problem
+        }
+
+         } else if (key==BACKSPACE){
+           if (angle.i.text.length() > 0) {
+              angle.i.text = angle.i.text.substring(0, angle.i.text.length() - 1);
+           } else {
+             len.i.text = "";
+           }
+          }
+          else if (angle.i.text.length() > 1) {
+          message = "only 2 numbers";
+          } else {
+            if (key >= 48 && key <= 57) {
+               if (key == 48 && angle.i.text.length() == 0) message = "no 0 in the front";
+                else angle.i.text = angle.i.text + key;
+            } else {
+              message = "numbers 0-9 only please";
+        }
+       }
     }
    
   }
@@ -254,6 +291,10 @@ void mouseClicked() {
       if (gravity.clicked){
         gravity.clicked = false;
         gravity.change_color(gravity.og_c);
+      }
+      if (l2 && angle.clicked) {
+        angle.clicked = false;
+        angle.change_color(angle.og_c);
       }
       if (!len.clicked) {
         len.clicked = true;
@@ -274,6 +315,10 @@ void mouseClicked() {
         len.clicked = false;
         len.change_color(len.og_c);
       }
+      if (l2 && angle.clicked) {
+        angle.clicked = false;
+        angle.change_color(angle.og_c);
+      }
       if (!gravity.clicked) {
         gravity.clicked = true;
         gravity.change_color(100);
@@ -287,6 +332,30 @@ void mouseClicked() {
       }
     }
   }
+  if (l2 && angle.on_button(mouseX, mouseY)) {
+    if (round) {
+      if (len.clicked) {
+        len.clicked = false;
+        len.change_color(angle.og_c);
+      }
+      if (gravity.clicked) {
+        gravity.clicked = false;
+        gravity.change_color(gravity.og_c);
+      }
+      if (!angle.clicked) {
+        angle.clicked = true;
+        angle.change_color(100); // HERE FOR FRICTION IT WLD CHANGE TEXT TOO!!
+      } else {
+        angle.clicked = false;
+        angle.change_color(angle.og_c);
+        angle.i.text = "";
+        message = "";
+      }
+      
+    }
+    
+  }
+  
   if (restart.on_button(mouseX, mouseY)) {
     rounds = 0;
     rope_length = 200;

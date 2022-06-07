@@ -32,10 +32,30 @@ public class Ramp {
     triangle(x1, y1, x2, y2, x2, y1);
   } 
   
+  int change_angle(float a) {
+    // adjust all the variables accordingly with the new angle
+    angle = a;
+    println(y1);
+    println(y2);
+    println((x1 - x2) * tan(radians(angle)));
+    y2 = int(y1 + (x1 - x2) * tan(radians(angle)));
+    return y2;
+  }
+  
   boolean inelasticC (Candy c) {
+    // PROBLEM: the 730!
     float slope = (float(y1) - float(y2)) / (float(x1) - float(x2));
-    yRPos = slope * c.xPos + 730;
+    yRPos = slope * (c.xPos - x1) + y1;
     float d = dist(c.xPos, yRPos, c.xPos, c.yPos);
-    return (d <= 6 && c.xPos >= 350);
+    if (angle < 40 && d <= 6 && c.xPos >= 350) {
+      return true;
+    } else if (angle < 60 && angle >= 40 && d <= 20 && c.xPos >= 350) {
+      return true;
+    } else if (angle < 70 && angle >= 60 && d <= 40 && c.xPos >= 350) {
+      return true;
+    } else {
+      return false;
+    }
+    
   }
 }
