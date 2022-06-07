@@ -12,16 +12,10 @@ public class Ramp {
     x2 = x2pos; 
     y1 = y1pos; 
     y2 = y2pos;
-    
-    print("creating ramp");
-    print(x1);
-    print(x2);
-    print(y1);
-    print(y2);
+   
     if (x2 != x1){
       angle = atan2(y1 - y2, x2 - x1);
       angle = degrees(angle);
-      print(angle);
     }
     else angle = 0;
     //350, 600, 450, 250
@@ -35,9 +29,6 @@ public class Ramp {
   int change_angle(float a) {
     // adjust all the variables accordingly with the new angle
     angle = a;
-    println(y1);
-    println(y2);
-    println((x1 - x2) * tan(radians(angle)));
     y2 = int(y1 + (x1 - x2) * tan(radians(angle)));
     return y2;
   }

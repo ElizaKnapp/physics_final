@@ -6,7 +6,7 @@ Platform plat;
 Ramp ramp;
 int rounds = 0; // this is the amount of rounds that have passed to calculuate when omnom's mouth is open
 boolean cut_yet = false;
-Button len, restart, gravity, level2, level1, angle;
+Button len, restart, gravity, level2, level1, angle, mass_b;
 int rope_length = 200;
 boolean round = true;
 boolean won;
@@ -61,6 +61,7 @@ void setup2() {
   restart = new Button(50, 500, color(0,0,255), 25, "Restart"); 
   gravity = new Button(150, 500, color(100, 100, 0), 25, "Gravity");
   angle = new Button(50, 550, color(100, 0, 100), 25, "Angle");
+  mass_b = new Button(100, 550, color(0, 100, 100), 25, "Mass");
   level1 = new Button(50, 50, color(0, 100, 100), 35, "Level 1");
   level2 = new Button(550, 50, color(0, 100, 100), 35, "Level 2");
   won = false;  
@@ -97,13 +98,18 @@ void draw() {
     textSize(20);
     textAlign(LEFT);
     if (message.contains("Jupiter") || message.contains("rocket") || message.contains("pendulum") 
-    || message.contains("Good work!") || message.contains("LEVEL 2") || message.contains("play level 1")) fill(color(0, 255, 0));
+    || message.contains("Good work!") || message.contains("LEVEL 2") || message.contains("play level 1")
+    || message.contains("candy mass") || message.contains("ramp has changed") || message.contains("input: len")
+    || message.contains("masses from 10 to 400 kgs") || message.contains("input: angles 10 to 70 degrees")){
+      fill(color(0, 255, 0));
+    }
     else fill(color(255,0,0));
     if (message.contains("finished the game")) text(message, 100, 50);
     else text(message, 20, 50);
     textSize(12);
     // display the angle button
     angle.display();
+    mass_b.display();
     
   }
   
@@ -280,6 +286,40 @@ void keyPressed() {
               message = "numbers 0-9 only please";
         }
        }
+    } else if (mass_b.clicked) {
+
+      if (key == '\n' ) {
+        try {
+          int new_mass = Integer.valueOf(mass_b.i.text);
+            if (new_mass <= 400 && new_mass >= 10 && l2) { // RECONSIDER THESE BOUNDS
+              mass = new_mass;
+              message = "The candy mass has changed!";
+             } else {
+               if (l2) message = "please input a mass between 10 and 400 kgs";
+             }
+            rounds = 0;
+            if (l2) setup2();
+        } catch (Exception e) {
+          // continue to find problem
+        }
+
+         } else if (key==BACKSPACE){
+           if (mass_b.i.text.length() > 0) {
+              mass_b.i.text = mass_b.i.text.substring(0, mass_b.i.text.length() - 1);
+           } else {
+             len.i.text = "";
+           }
+          }
+          else if (mass_b.i.text.length() > 2) {
+          message = "only 3 numbers";
+          } else {
+            if (key >= 48 && key <= 57) {
+               if (key == 48 && mass_b.i.text.length() == 0) message = "no 0 in the front";
+                else mass_b.i.text = mass_b.i.text + key;
+            } else {
+              message = "numbers 0-9 only please";
+        }
+       }
     }
    
   }
@@ -295,6 +335,10 @@ void mouseClicked() {
       if (l2 && angle.clicked) {
         angle.clicked = false;
         angle.change_color(angle.og_c);
+      }
+      if (l2 && mass_b.clicked) {
+        mass_b.clicked = false;
+        mass_b.change_color(mass_b.og_c);
       }
       if (!len.clicked) {
         len.clicked = true;
@@ -319,12 +363,15 @@ void mouseClicked() {
         angle.clicked = false;
         angle.change_color(angle.og_c);
       }
+      if (l2 && mass_b.clicked) {
+        mass_b.clicked = false;
+        mass_b.change_color(mass_b.og_c);
+      }
       if (!gravity.clicked) {
         gravity.clicked = true;
         gravity.change_color(100);
-        print("change mess");
         message = "Drive the rocket away from jupiter to adjust gravity" + '\n' + "Input values 0-25 m/s^2 for acc due to gravity";
-      } else {
+      } else {  
         gravity.clicked = false;
         gravity.change_color(gravity.og_c);
         gravity.i.text = "";
@@ -336,29 +383,62 @@ void mouseClicked() {
     if (round) {
       if (len.clicked) {
         len.clicked = false;
+        len.change_color(len.og_c);
+      }
+      if (gravity.clicked) {
+        gravity.clicked = false;
+        gravity.change_color(gravity.og_c);
+      }
+      if (l2 && mass_b.clicked) {
+        mass_b.clicked = false;
+        mass_b.change_color(mass_b.og_c);
+      }
+      if (!angle.clicked) {
+        angle.clicked = true;
+        angle.change_color(100);
+        if (l2) message = "input: angles 10 to 70 degrees";
+
+      } else {
+        angle.clicked = false;
+        angle.change_color(angle.og_c);
+        angle.i.text = "";
+        message = "";
+      }  
+    }
+  }
+
+  if (l2 && mass_b.on_button(mouseX, mouseY)) {
+    if (round) {
+      if (len.clicked) {
+        len.clicked = false;
         len.change_color(angle.og_c);
       }
       if (gravity.clicked) {
         gravity.clicked = false;
         gravity.change_color(gravity.og_c);
       }
-      if (!angle.clicked) {
-        angle.clicked = true;
-        angle.change_color(100); // HERE FOR FRICTION IT WLD CHANGE TEXT TOO!!
-      } else {
+      if (l2 && angle.clicked) { // ik l2 is redundant but this decreases my future copy paste errors lol
         angle.clicked = false;
         angle.change_color(angle.og_c);
-        angle.i.text = "";
-        message = "";
       }
-      
+      if (!mass_b.clicked) {
+        mass_b.clicked = true;
+        mass_b.change_color(100); // HERE FOR FRICTION IT WLD CHANGE TEXT TOO!!
+        if (l2) message = "input: masses from 10 to 400 kg";
+      } else {
+        mass_b.clicked = false;
+        mass_b.change_color(mass_b.og_c);
+        mass_b.i.text = "";
+        message = "";
+      }  
     }
-    
   }
   
   if (restart.on_button(mouseX, mouseY)) {
     rounds = 0;
     rope_length = 200;
+    mass = 50;
+    ramp_y2 = 250;
     cut_yet = false;
     round = true;
     if (l2) message = "LEVEL 2. Click space to cut rope. A reminder that when" + "\n" + "the ball hits the ramp, the collision is perfectly inelastic";
@@ -370,6 +450,8 @@ void mouseClicked() {
   if (level2.on_button(mouseX, mouseY)) {
     rounds = 0;
     rope_length = 200;
+    mass = 50;
+    ramp_y2 = 250;
     cut_yet = false;
     round = true;
     message = "LEVEL 2. Click space to cut rope. A reminder that when" + "\n" + "the ball hits the ramp, the collision is perfectly inelastic";
@@ -379,6 +461,8 @@ void mouseClicked() {
   if (level1.on_button(mouseX, mouseY)) {
     rounds = 0;
     rope_length = 200;
+    mass = 50;
+    ramp_y2 = 250;
     cut_yet = false;
     round = true;
     message = "Welcome back to level 1";
