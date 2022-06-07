@@ -22,7 +22,7 @@ public class Candy {
       // this 30 is the entire length, not the radius!
       // ellipse(xPos, yPos, 30, 30);
       imageMode(CENTER);
-      image(pic, xPos, yPos, 30, 30);
+      image(pic, xPos, yPos, 30 * mass/100, 30 * mass/100);
       imageMode(CORNER);
     }
   }
@@ -49,7 +49,7 @@ public class Candy {
     v_y = v_net * sin(radians(ramp.angle));
     xPos += (int)(v_x / 100); // minus cuz down the ramp lol
     yPos += (int)(v_y / 100);
-    v_net += (mass * gravity * sin(radians(ramp.angle))/ 50);
+    v_net += (gravity * sin(radians(ramp.angle)));
     
   }
 }

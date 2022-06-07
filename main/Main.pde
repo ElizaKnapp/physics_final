@@ -14,7 +14,7 @@ String message = "You have been placed on Jupiter to feed a cute alien" + '\n' +
 int g = 25;
 int space = 0; // the amount of time it is in space
 boolean l2 = false;
-float mass = 50; // mass of the candy
+float mass = 100; // mass of the candy
 int ramp_y2 = 250; // starting y2 (will change later!)
 boolean friction_on = false;
 
@@ -112,7 +112,8 @@ void draw() {
     textSize(15);
     fill(color(0, 0, 255));
     text("Make sure the velocity isn't" + "\n" + "too fast! Otherwise" + "\n" + 
-     "OmNom will choke", 380, 500);
+     "OmNom will choke" + "\n" + "For larger masses,  he will" +
+    "\n" + "choke at lower velocities" , 380, 500);
     textSize(12);
     // display the angle button
     angle.display();
@@ -153,7 +154,7 @@ void draw() {
   // omnom's picture
   o.check_eating_state(p.c, l2);
   if (o.choking) {
-    message = "The velocity of the candy was too fast! OmNom choked!";
+    message = "The velocity of the candy was too fast for that mass!" + "\n" + "OmNom choked!";
   }
   if (o.eating) {
     won = true;
@@ -187,7 +188,7 @@ void loadImages() {
   candy_pic = loadImage("candy.png");
   rocket = loadImage("rocket.png");
   jupiter = loadImage("jupiter.png");
-  choking_omnom = loadImage("sad8.png"); // RANDOM IMAGE FOR NOW, better later!
+  choking_omnom = loadImage("choking.png"); 
 }
 
 void keyPressed() {
@@ -499,7 +500,7 @@ void mouseClicked() {
   if (restart.on_button(mouseX, mouseY)) {
     rounds = 0;
     rope_length = 200;
-    mass = 50;
+    mass = 100;
     ramp_y2 = 250;
     cut_yet = false;
     round = true;
@@ -512,7 +513,7 @@ void mouseClicked() {
   if (level2.on_button(mouseX, mouseY)) {
     rounds = 0;
     rope_length = 200;
-    mass = 50;
+    mass = 100;
     ramp_y2 = 250;
     cut_yet = false;
     round = true;
@@ -523,7 +524,7 @@ void mouseClicked() {
   if (level1.on_button(mouseX, mouseY)) {
     rounds = 0;
     rope_length = 200;
-    mass = 50;
+    mass = 100;
     ramp_y2 = 250;
     cut_yet = false;
     round = true;

@@ -33,7 +33,7 @@ public class OmNom {
     // if it's close enough, make omnom eat
     if (d <= 40) {
       print(c.v_net);
-      if (l2 && c.v_net > choking_v) {
+      if (l2 && (c.v_net > choking_v || (c.mass > 200 && c.v_net > choking_v - 200))) {
         choking = true;
         c.vis = false;
       } else {
