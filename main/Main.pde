@@ -95,6 +95,11 @@ void draw() {
     // HERE GOES ALL THINGS LEVEL 2 RELATED
     ramp.display();
     plat.display();
+    textSize(20);
+    fill(#08d1b3);
+    text("choking velocity: " + "600" + " m/s",490,60);
+    textSize(12);
+    fill(#F57474);
     
     // display the level 2 message
     textSize(20);
@@ -169,7 +174,7 @@ void draw() {
   // display the velocity of the candy
   textSize(20);
   fill(#08d1b3);
-  text(str(p.velocity()),550,30);
+  text("current velocity: " + round(p.velocity()) + " m/s",490,30);
   textSize(12);
   fill(#F57474);
   
