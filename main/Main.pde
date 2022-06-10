@@ -6,7 +6,7 @@ Platform plat;
 Ramp ramp;
 int rounds = 0; // this is the amount of rounds that have passed to calculuate when omnom's mouth is open
 boolean cut_yet = false;
-Button len, restart, gravity, level2, level1, angle, mass_b, friction;
+Button len, restart, gravity, level2, level1, angle, mass_b, friction, pend_angle;
 int rope_length = 200;
 boolean round = true;
 boolean won;
@@ -17,6 +17,7 @@ boolean l2 = false;
 float mass = 100; // mass of the candy
 int ramp_y2 = 250; // starting y2 (will change later!)
 boolean friction_on = false;
+int p_angle = 90;
 
 public void settings() {
   size(600, 600);
@@ -28,13 +29,14 @@ void setup() {
   loadImages();
   plat = new Platform(0,0,0,0);
   ramp = new Ramp (0,0,0,0);
-  p = new Pendulum(200, 200, rope_length, 90, plat, ramp, candy_pic, g, mass); //added plat
+  p = new Pendulum(200, 200, rope_length, p_angle, plat, ramp, candy_pic, g, mass); //added plat
   o = new OmNom(o_open, o_closed, o_sad, o_eating, 550, 550, choking_omnom);
   len = new Button(100, 500, color(255,0,0), 25, "Length"); 
   restart = new Button(50, 500, color(0,0,255), 25, "Restart"); 
   gravity = new Button(150, 500, color(100, 100, 0), 25, "Gravity");
   level1 = new Button(50, 50, color(0, 100, 100), 35, "Level 1");
   level2 = new Button(550, 100, color(0, 100, 100), 35, "Level 2");
+  pend_angle = new Button(50, 550, color(100, 50, 255), 25, "Pendulum" + "\n" + "Angle");
   won = false;
 }
 
@@ -42,13 +44,14 @@ void reset_vars() {
   background(#B79D85);
   plat = new Platform(0,0,0,0);
   ramp = new Ramp(0, 0, 0, 0);
-  p = new Pendulum(200, 200, rope_length, 90, plat, ramp, candy_pic, g, mass); //added plat
+  p = new Pendulum(200, 200, rope_length, p_angle, plat, ramp, candy_pic, g, mass); //added plat
   o = new OmNom(o_open, o_closed, o_sad, o_eating, 550, 550, choking_omnom);
   len = new Button(100, 500, color(255,0,0), 25, "Length"); 
   restart = new Button(50, 500, color(0,0,255), 25, "Restart"); 
   gravity = new Button(150, 500, color(100, 100, 0), 25, "Gravity");
   level1 = new Button(50, 50, color(0, 100, 100), 35, "Level 1");
   level2 = new Button(550, 100, color(0, 100, 100), 35, "Level 2");
+  pend_angle = new Button(50, 550, color(100, 50, 255), 25, "Pendulum" + "\n" + "Angle");
   won = false;
 }
 
@@ -56,12 +59,13 @@ void setup2() {
   background(#B79D85);
   plat = new Platform(0,350,300,20);
   ramp = new Ramp(350, 600, 450, ramp_y2);
-  p = new Pendulum(200, 100, rope_length, 90, plat, ramp, candy_pic, g, mass); //added plat
+  p = new Pendulum(200, 100, rope_length, p_angle, plat, ramp, candy_pic, g, mass); //added plat
   o = new OmNom(o_open, o_closed, o_sad, o_eating, 300, 550, choking_omnom);
   len = new Button(100, 500, color(255,0,0), 25, "Length"); 
   restart = new Button(50, 500, color(0,0,255), 25, "Restart"); 
   gravity = new Button(150, 500, color(100, 100, 0), 25, "Gravity");
-  angle = new Button(50, 550, color(100, 0, 100), 25, "Angle");
+  angle = new Button(50, 550, color(100, 0, 100), 25, "Ramp" + "\n" + "Angle");
+  pend_angle = new Button(200, 550, color(100, 50, 255), 25, "Pendulum" + "\n" + "Angle");
   mass_b = new Button(100, 550, color(0, 100, 100), 25, "Mass");
   friction = new Button(150, 550, color(100, 50, 180), 25, "Friction" + "\n" + "Off");
   level1 = new Button(50, 50, color(0, 100, 100), 35, "Level 1");
@@ -110,7 +114,7 @@ void draw() {
     || message.contains("Good work!") || message.contains("LEVEL 2") || message.contains("play level 1")
     || message.contains("candy mass") || message.contains("ramp has changed") || message.contains("input: len")
     || message.contains("masses from 10 to 300 kgs") || message.contains("input: angles 10 to 70 degrees")
-    || message.contains("Friction")){
+    || message.contains("Friction") || message.contains("starting angle")){
       fill(color(0, 255, 0));
     }
     else fill(color(255,0,0));
@@ -137,7 +141,7 @@ void draw() {
     textAlign(LEFT);
     if (message.equals("input: lengths 50-300")) fill(color(0,255,0));
     else if (message.contains("Jupiter") || message.contains("rocket") || message.contains("pendulum") 
-    || message.contains("Good work!") || message.contains("Welcome")) fill(color(0,255,0));
+    || message.contains("Good work!") || message.contains("Welcome") || message.contains("starting angle")) fill(color(0,255,0));
     else fill(color(255,0,0));
     text(message, 20, 100);
     textSize(12);
@@ -147,6 +151,7 @@ void draw() {
   len.display();
   restart.display();
   gravity.display();
+  pend_angle.display();
   if (!round && won) {
     if (l2) {
       level1.display();
@@ -244,6 +249,44 @@ void keyPressed() {
             if (key >= 48 && key <= 57) {
                if (key == 48 && len.i.text.length() == 0) message = "no 0 in the front";
                 else len.i.text = len.i.text + key;
+            } else {
+              message = "numbers 0-9 only please";
+        }
+       }
+    }
+    else if (pend_angle.clicked) {
+
+      if (key == '\n' ) {
+        print("woot");
+        try {
+          int hold_angle = Integer.valueOf(pend_angle.i.text);
+            if (hold_angle <= 90 && hold_angle >= 1) {
+              print("reseting");
+              p_angle = hold_angle;
+              message = "The starting angle has changed!";
+             } else {
+               message = "please input a pendulum angle from 1 to 90";
+             }
+            rounds = 0;
+            if (l2) setup2();
+            else reset_vars();
+        } catch (Exception e) {
+          // continue to find problem
+        }
+
+         } else if (key==BACKSPACE){
+           if (pend_angle.i.text.length() > 0) {
+              pend_angle.i.text = pend_angle.i.text.substring(0, pend_angle.i.text.length() - 1);
+           } else {
+             pend_angle.i.text = "";
+           }
+          }
+          else if (pend_angle.i.text.length() > 1) {
+          message = "only 2 numbers";
+          } else {
+            if (key >= 48 && key <= 57) {
+               if (key == 48 && pend_angle.i.text.length() == 0) message = "no 0 in the front";
+                else pend_angle.i.text = pend_angle.i.text + key;
             } else {
               message = "numbers 0-9 only please";
         }
@@ -416,6 +459,41 @@ void mouseClicked() {
       }
     }
   }
+  if (pend_angle.on_button(mouseX, mouseY)) {
+    if (round) {
+      if (len.clicked) {
+        len.clicked = false;
+        len.change_color(len.og_c);
+      }
+      if (l2 && angle.clicked) {
+        angle.clicked = false;
+        angle.change_color(angle.og_c);
+      }
+      if (l2 && mass_b.clicked) {
+        mass_b.clicked = false;
+        mass_b.change_color(mass_b.og_c);
+      }
+      if (l2 && friction.clicked) { 
+        friction.clicked = false;
+        friction.change_color(angle.og_c);
+      }
+      if (gravity.clicked) {
+        gravity.clicked = false;
+        gravity.change_color(gravity.og_c);
+      }
+      if (!pend_angle.clicked) {
+        pend_angle.clicked = true;
+        pend_angle.change_color(100);
+        print("here");
+        message = "Input a starting angle between 1 and 90";
+      } else {  
+        pend_angle.clicked = false;
+        pend_angle.change_color(pend_angle.og_c);
+        pend_angle.i.text = "";
+        message = "";
+      }
+    }
+  }
   if (l2 && angle.on_button(mouseX, mouseY)) {
     if (round) {
       if (len.clicked) {
@@ -518,6 +596,7 @@ void mouseClicked() {
     rope_length = 200;
     mass = 100;
     ramp_y2 = 250;
+    p_angle = 90;
     cut_yet = false;
     round = true;
     if (l2) message = "LEVEL 2. Click space to cut rope. A reminder that when" + "\n" + "the ball hits the ramp, the collision is perfectly inelastic";
@@ -531,6 +610,7 @@ void mouseClicked() {
     rope_length = 200;
     mass = 100;
     ramp_y2 = 250;
+    p_angle = 90;
     cut_yet = false;
     round = true;
     message = "LEVEL 2. Click space to cut rope. A reminder that when" + "\n" + "the ball hits the ramp, the collision is perfectly inelastic";
@@ -542,6 +622,7 @@ void mouseClicked() {
     rope_length = 200;
     mass = 100;
     ramp_y2 = 250;
+    p_angle = 90;
     cut_yet = false;
     round = true;
     message = "Welcome back to level 1";
