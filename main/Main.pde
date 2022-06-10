@@ -265,7 +265,7 @@ void keyPressed() {
               p_angle = hold_angle;
               message = "The starting angle has changed!";
              } else {
-               message = "please input a pendulum angle from 1 to 90";
+               message = "please input a pendulum angle from 1 to 90 degrees";
              }
             rounds = 0;
             if (l2) setup2();
@@ -492,7 +492,7 @@ void mouseClicked() {
       if (!pend_angle.clicked) {
         pend_angle.clicked = true;
         pend_angle.change_color(100);
-        message = "Input a starting angle between 1 and 90";
+        message = "Input a starting angle between 1 and 90 degrees";
       } else {  
         pend_angle.clicked = false;
         pend_angle.change_color(pend_angle.og_c);
