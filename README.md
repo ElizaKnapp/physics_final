@@ -14,6 +14,7 @@ Available buttons:
  - restart: restart the level, the length of the pendulum, and the gravity
  - length: change the length of the pendulum, within a range of 50 to 300 meters (represented in pixels)
  - gravity: change the acceleration due to gravity that the candy experiences within a range of 1 to 25 m^2/s
+ - pendulum angle: change the starting angle of the pendulum from somewhere between 1 and 90 degrees
 
 
 Cut the candy off the pendulum using [space]. You will be able to observe the velocity at which the candy will reach OmNom's mouth on the upper right corner. 
@@ -27,8 +28,9 @@ Available buttons:
  - restart: restart the level, the length of the pendulum, and the gravity
  - length: change the length of the pendulum, within a range of 50 to 200 meters (represented in pixels)
  - gravity: change the acceleration due to gravity that the candy experiences within a range of 1 to 25 m^2/s
- - angle: change the angle of the ramp
- - mass: change the mass of the candy, and therefore the size, assuming the candy has the same density regardless of size
+ - pendulum angle: change the starting angle of the pendulum from somewhere between 1 and 90 degrees
+ - ramp angle: change the angle of the ramp between 10 and 70 degrees
+ - mass: change the mass of the candy, and therefore the size, assuming the candy has the same density regardless of size (from 10 to 300 kgs)
  - friction switch: choose whether or not you want friction on the ramp. Friction on the ramp will lead to the candy rolling. 
 
 
