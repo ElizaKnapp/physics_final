@@ -13,7 +13,7 @@ You will be introduced to the basics of our version of Cut the Rope.
 Available buttons: 
  - restart: restart the level, the length of the pendulum, and the gravity
  - length: change the length of the pendulum, within a range of 50 to 300 meters (represented in pixels)
- - gravity: change the acceleration due to gravity that the candy experiences within a range of 1 to 25 m^2/s
+ - gravity: change the acceleration due to gravity that the candy experiences within a range of 1 to 24 m^2/s
  - pendulum angle: change the starting angle of the pendulum from somewhere between 1 and 90 degrees
 
 
@@ -27,7 +27,7 @@ In the second level, you will be able to play Cut the Rope with a variety of fun
 Available buttons: 
  - restart: restart the level, the length of the pendulum, and the gravity
  - length: change the length of the pendulum, within a range of 50 to 200 meters (represented in pixels)
- - gravity: change the acceleration due to gravity that the candy experiences within a range of 1 to 25 m^2/s
+ - gravity: change the acceleration due to gravity that the candy experiences within a range of 1 to 24 m^2/s
  - pendulum angle: change the starting angle of the pendulum from somewhere between 1 and 90 degrees
  - ramp angle: change the angle of the ramp between 10 and 70 degrees
  - mass: change the mass of the candy, and therefore the size, assuming the candy has the same density regardless of size (from 10 to 300 kgs)
