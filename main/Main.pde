@@ -103,6 +103,7 @@ void draw() {
     fill(#08d1b3);
     int choke_vel = 600;
     if (p.c.mass > 200) choke_vel = 400;
+    textAlign(CENTER);
     text("choking velocity: " + str(choke_vel) + " m/s",470,105);
     textSize(12);
     fill(#F57474);
@@ -181,6 +182,7 @@ void draw() {
   // display the velocity of the candy
   textSize(20);
   fill(#08d1b3);
+  textAlign(CENTER);
   text("current velocity: " + round(p.velocity()) + " m/s",470,25);
   textSize(12);
   fill(#F57474);
@@ -257,11 +259,9 @@ void keyPressed() {
     else if (pend_angle.clicked) {
 
       if (key == '\n' ) {
-        print("woot");
         try {
           int hold_angle = Integer.valueOf(pend_angle.i.text);
             if (hold_angle <= 90 && hold_angle >= 1) {
-              print("reseting");
               p_angle = hold_angle;
               message = "The starting angle has changed!";
              } else {
@@ -404,6 +404,10 @@ void mouseClicked() {
         gravity.clicked = false;
         gravity.change_color(gravity.og_c);
       }
+      if (pend_angle.clicked) {
+        pend_angle.clicked = false;
+        pend_angle.change_color(pend_angle.og_c);
+      }
       if (l2 && angle.clicked) {
         angle.clicked = false;
         angle.change_color(angle.og_c);
@@ -434,6 +438,10 @@ void mouseClicked() {
       if (len.clicked) {
         len.clicked = false;
         len.change_color(len.og_c);
+      }
+      if (pend_angle.clicked) {
+        pend_angle.clicked = false;
+        pend_angle.change_color(pend_angle.og_c);
       }
       if (l2 && angle.clicked) {
         angle.clicked = false;
@@ -484,7 +492,6 @@ void mouseClicked() {
       if (!pend_angle.clicked) {
         pend_angle.clicked = true;
         pend_angle.change_color(100);
-        print("here");
         message = "Input a starting angle between 1 and 90";
       } else {  
         pend_angle.clicked = false;
@@ -499,6 +506,10 @@ void mouseClicked() {
       if (len.clicked) {
         len.clicked = false;
         len.change_color(len.og_c);
+      }
+      if (pend_angle.clicked) {
+        pend_angle.clicked = false;
+        pend_angle.change_color(pend_angle.og_c);
       }
       if (gravity.clicked) {
         gravity.clicked = false;
@@ -532,6 +543,10 @@ void mouseClicked() {
         len.clicked = false;
         len.change_color(angle.og_c);
       }
+      if (pend_angle.clicked) {
+        pend_angle.clicked = false;
+        pend_angle.change_color(pend_angle.og_c);
+      }      
       if (gravity.clicked) {
         gravity.clicked = false;
         gravity.change_color(gravity.og_c);
@@ -563,6 +578,10 @@ void mouseClicked() {
         len.clicked = false;
         len.change_color(angle.og_c);
       }
+      if (pend_angle.clicked) {
+        pend_angle.clicked = false;
+        pend_angle.change_color(pend_angle.og_c);
+      }      
       if (gravity.clicked) {
         gravity.clicked = false;
         gravity.change_color(gravity.og_c);
