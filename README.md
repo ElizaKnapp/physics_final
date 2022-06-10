@@ -2,7 +2,7 @@
 
 Cut the Rope, version Eliza & Laura
 
-In our new and improved version of Cut the Rope, you will find our continued alien star, OmNom, with the same goal of eating the candy. This time, he is on a journey from Jupiter on their rocketship to find more candy. However, OmNom will face new challenges to try and eat the candy that you, the user, must help him overcome. 
+In our new and improved version of Cut the Rope, you will find our continued alien star, OmNom, with the same goal of eating the candy. This time, he is on a journey from Jupiter on their rocketship to find more candy. However, OmNom will face new challenges to try and eat the already available candy that you, the user, must help him overcome. 
 
 
 
