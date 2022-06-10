@@ -34,7 +34,7 @@ void setup() {
   restart = new Button(50, 500, color(0,0,255), 25, "Restart"); 
   gravity = new Button(150, 500, color(100, 100, 0), 25, "Gravity");
   level1 = new Button(50, 50, color(0, 100, 100), 35, "Level 1");
-  level2 = new Button(550, 50, color(0, 100, 100), 35, "Level 2");
+  level2 = new Button(550, 100, color(0, 100, 100), 35, "Level 2");
   won = false;
 }
 
@@ -48,7 +48,7 @@ void reset_vars() {
   restart = new Button(50, 500, color(0,0,255), 25, "Restart"); 
   gravity = new Button(150, 500, color(100, 100, 0), 25, "Gravity");
   level1 = new Button(50, 50, color(0, 100, 100), 35, "Level 1");
-  level2 = new Button(550, 50, color(0, 100, 100), 35, "Level 2");
+  level2 = new Button(550, 100, color(0, 100, 100), 35, "Level 2");
   won = false;
 }
 
@@ -65,7 +65,7 @@ void setup2() {
   mass_b = new Button(100, 550, color(0, 100, 100), 25, "Mass");
   friction = new Button(150, 550, color(100, 50, 180), 25, "Friction" + "\n" + "Off");
   level1 = new Button(50, 50, color(0, 100, 100), 35, "Level 1");
-  level2 = new Button(550, 50, color(0, 100, 100), 35, "Level 2");
+  level2 = new Button(550, 100, color(0, 100, 100), 35, "Level 2");
   won = false;  
   l2 = true;
     
@@ -97,7 +97,9 @@ void draw() {
     plat.display();
     textSize(20);
     fill(#08d1b3);
-    text("choking velocity: " + "600" + " m/s",490,60);
+    int choke_vel = 600;
+    if (p.c.mass > 200) choke_vel = 400;
+    text("choking velocity: " + str(choke_vel) + " m/s",470,105);
     textSize(12);
     fill(#F57474);
     
@@ -174,7 +176,7 @@ void draw() {
   // display the velocity of the candy
   textSize(20);
   fill(#08d1b3);
-  text("current velocity: " + round(p.velocity()) + " m/s",490,30);
+  text("current velocity: " + round(p.velocity()) + " m/s",470,25);
   textSize(12);
   fill(#F57474);
   
