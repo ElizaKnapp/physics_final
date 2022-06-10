@@ -37,4 +37,4 @@ Available buttons:
 Cut the candy off the pendulum using [space]. You will be able to observe the velocity at which the candy will reach OmNom's mouth and the velocity at which OmNom will choke on the upper right corner. If the mass gets big enough, the velocity at which OmNom will choke decreases signficantly, so be careful! (specifically, once the mass is greater than 200 kgs, choking velocity goes down from 600 m/s to 400 m/s)
 
 
-Good luck helping OmNom get their candy!
+Have fun and good luck helping OmNom get their candy (OmNom will greatly appreciate your help, or be very sad that they don't recieve it)!
