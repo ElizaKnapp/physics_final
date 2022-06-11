@@ -1,4 +1,4 @@
-PImage o_open, o_closed, o_sad, candy_pic, rocket, jupiter, choking_omnom;
+PImage o_open, o_closed, o_sad, candy_pic, rocket, rocket2, jupiter, choking_omnom;
 PImage[] o_eating = new PImage[16];
 Pendulum p;
 OmNom o;
@@ -18,6 +18,7 @@ float mass = 100; // mass of the candy
 int ramp_y2 = 250; // starting y2 (will change later!)
 boolean friction_on = false;
 int p_angle = 90;
+boolean away = true;
 
 public void settings() {
   size(600, 600);
@@ -80,14 +81,22 @@ void draw() {
   if (space > 0) {
     space --;
     background(0);
-    image(rocket, 200, 200, 200, 200);
     image(jupiter, -40, 470, 200, 200);
     textSize(20);
     textAlign(CENTER);
     fill(color(255));
-    text("The space ship travels away from Jupiter so the" +
+    if (away) {
+          image(rocket, 200, 200, 200, 200);
+     text("The space ship travels away from Jupiter so the" +
     "\n" + "acceleration due to gravity decreases." + "\n" 
     + "We ARE physically accurate!", 300, 100);
+    } else {
+      image(rocket2, 200, 200, 200, 200);
+
+           text("The space ship travels towards from Jupiter so the" +
+    "\n" + "acceleration due to gravity increases." + "\n" 
+    + "We ARE physically accurate!", 300, 100);
+    }
     textSize(12);
     
   } else {
@@ -208,6 +217,7 @@ void loadImages() {
   }
   candy_pic = loadImage("candy.png");
   rocket = loadImage("rocket.png");
+  rocket2 = loadImage("rocket2.png");
   jupiter = loadImage("jupiter.png");
   choking_omnom = loadImage("choking.png"); 
 }
@@ -297,8 +307,11 @@ void keyPressed() {
        try {
         int grav = Integer.valueOf(gravity.i.text);
         if (grav <= 25 && grav >= 1) {
+          if (grav < g) away = true;
+          else away = false;
           g = grav;
           space = 300;
+ 
           message = "You have traveled through space, notice how the period" + "\n" + "of the pendulum changes.";
          } else message = "please input a gravity value from 1 to 25";
         rounds = 0;
