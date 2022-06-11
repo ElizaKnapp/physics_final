@@ -309,10 +309,14 @@ void keyPressed() {
         if (grav <= 25 && grav >= 1) {
           if (grav < g) away = true;
           else away = false;
-          g = grav;
-          space = 300;
- 
-          message = "You have traveled through space, notice how the period" + "\n" + "of the pendulum changes.";
+          
+          if (grav == g) {
+            message = "That was the same gravity as before!";
+          } else {
+            g = grav;
+            space = 300;
+            message = "You have traveled through space, notice how the period" + "\n" + "of the pendulum changes.";
+          }
          } else message = "please input a gravity value from 1 to 25";
         rounds = 0;
         if (l2) setup2();
