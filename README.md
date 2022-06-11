@@ -27,10 +27,10 @@ In the second level, you will be able to play Cut the Rope with a variety of fun
 Available buttons: 
  - restart: restart the level, the length of the pendulum, the gravity, the starting angle of the pendulum, the ramp angle, the mass of the candy, and the friction switch
  - length: change the length of the pendulum, within a range of 50 to 200 meters (represented in pixels)
- - gravity: change the acceleration due to gravity that the candy experiences within a range of 1 to 24 m^2/s
+ - gravity: change the acceleration due to gravity that the candy experiences within a range of 1 to 24 m/s^2
  - pendulum angle: change the starting angle of the pendulum from somewhere between 1 and 90 degrees
  - ramp angle: change the angle of the ramp between 10 and 70 degrees
- - mass: change the mass of the candy, and therefore the size, assuming the candy has the same density regardless of size (from 10 to 300 kgs)
+ - mass: change the mass of the candy from 10 to 300 kgs, and therefore the size of the candy (assuming the candy's density is not dependent on size)
  - friction switch: choose whether or not you want friction on the ramp. Friction on the ramp will lead to the candy rolling while no friction on the ramp will lead to the candy sliding down the ramp. 
 
 
